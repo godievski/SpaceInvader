@@ -51,7 +51,7 @@ public class Game extends javax.swing.JFrame {
         this.enemigos = new ProcesoEnemigo();
         this.controladorColisiones = new ControlarColisiones(this.nave,this.enemigos);
         this.keyPressed = 0;
-        this.puntaje = 0;
+        Game.puntaje = 0;
     }
 
     public void play(){
@@ -61,7 +61,7 @@ public class Game extends javax.swing.JFrame {
             try {
                 nave.mover(this.keyPressed);
                 repaint();
-                sleep(40);
+                sleep(50);
             } catch (InterruptedException ex) {
                 Logger.getLogger(Game.class.getName()).log(Level.SEVERE, null, ex);
             }

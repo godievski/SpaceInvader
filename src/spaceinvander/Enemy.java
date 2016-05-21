@@ -15,7 +15,7 @@ public class Enemy extends Objeto {
     
     private static final int WIDTH = 15;
     private static final int HEIGHT = 15;
-    private static final int VELOCIDAD = 6;
+    private static final int VELOCIDAD = 5;
     
     public Enemy(JFrame ventana){
         super(0, 0,VELOCIDAD, WIDTH, HEIGHT, ventana);

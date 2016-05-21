@@ -17,7 +17,7 @@ import static java.lang.Thread.sleep;
  */
 public class ProcesoEnemigo extends Thread{
     public ArrayList<Enemy> listaEnemy;
-    private static final int sleepTime = 50;
+    private static final int sleepTime = 40;
     private static final int intervalo = 700;
     private static int contador = 0;
     
