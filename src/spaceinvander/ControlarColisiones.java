@@ -35,7 +35,6 @@ public class ControlarColisiones extends Thread{
                     }
                 } catch (Exception e){
                 }
-                
             }
             
             
