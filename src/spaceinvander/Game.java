@@ -9,6 +9,9 @@ import java.awt.Color;
 import java.awt.Event;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
+import java.awt.GraphicsConfiguration;
+import java.awt.GraphicsDevice;
+import java.awt.GraphicsEnvironment;
 import java.awt.event.KeyEvent;
 import java.awt.image.BufferStrategy;
 import static java.lang.Thread.sleep;
@@ -16,12 +19,13 @@ import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
+import static java.lang.Thread.sleep;
 
 /**
  *
  * @author Godievski
  */
-public class Ventana extends javax.swing.JFrame {
+public class Game extends javax.swing.JFrame {
 
     /**
      * Creates new form Ventana
@@ -33,12 +37,14 @@ public class Ventana extends javax.swing.JFrame {
     protected static int puntaje;
     
     
-    public Ventana() {
+    public Game(GraphicsConfiguration graphicConf) {
+        super(graphicConf);
+        this.setIgnoreRepaint(true);
         initComponents();
         this.setBounds(500, 100, 500, 500);
         this.setResizable(false);
         this.setVisible(true);
-        this.createBufferStrategy(4);
+        this.createBufferStrategy(2);
         this.setTitle("SpaceInvader by Godievski");
         //CENTRADO NAVE
         nave = new Nave(this);
@@ -55,9 +61,9 @@ public class Ventana extends javax.swing.JFrame {
             try {
                 nave.mover(this.keyPressed);
                 repaint();
-                sleep(50);
+                sleep(40);
             } catch (InterruptedException ex) {
-                Logger.getLogger(Ventana.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(Game.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
     }
@@ -93,7 +99,7 @@ public class Ventana extends javax.swing.JFrame {
         
         //DIBUJAR PUNTAJE
         g.setColor(Color.WHITE);
-        g.drawString("Points: " + Ventana.puntaje, 10, 40);
+        g.drawString("Points: " + Game.puntaje, 10, 40);
         
         
         g.dispose();

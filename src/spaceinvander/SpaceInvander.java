@@ -5,6 +5,10 @@
  */
 package spaceinvander;
 
+import java.awt.GraphicsConfiguration;
+import java.awt.GraphicsDevice;
+import java.awt.GraphicsEnvironment;
+
 /**
  *
  * @author Godievski
@@ -16,8 +20,13 @@ public class SpaceInvander {
      */
     public static void main(String[] args) {
         // TODO code application logic here
-        Ventana ventana = new Ventana();
-        ventana.play();
+        GraphicsEnvironment graphEnv =
+        GraphicsEnvironment.getLocalGraphicsEnvironment();
+        GraphicsDevice graphDevice = graphEnv.getDefaultScreenDevice
+        ();
+        GraphicsConfiguration graphicConf = graphDevice.getDefaultConfiguration(); 
+        Game game = new Game(graphicConf);
+        game.play();
     }
     
 }
