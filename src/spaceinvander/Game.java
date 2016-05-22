@@ -34,14 +34,17 @@ public class Game extends javax.swing.JFrame {
     private int keyPressed;
     private ProcesoEnemigo enemigos;
     private ControlarColisiones controladorColisiones;
-    protected static int puntaje;
+    protected static int score;
+    private final static int sleepTime = 50;
+    protected final static int WINDOW_WIDTH = 400;
+    protected final static int WINDOW_HEIGHT = 600;
     
     
     public Game(GraphicsConfiguration graphicConf) {
         super(graphicConf);
         this.setIgnoreRepaint(true);
         initComponents();
-        this.setBounds(500, 100, 500, 500);
+        this.setBounds(500, 100, Game.WINDOW_WIDTH, Game.WINDOW_HEIGHT);
         this.setResizable(false);
         this.setVisible(true);
         this.createBufferStrategy(2);
@@ -51,7 +54,7 @@ public class Game extends javax.swing.JFrame {
         this.enemigos = new ProcesoEnemigo();
         this.controladorColisiones = new ControlarColisiones(this.nave,this.enemigos);
         this.keyPressed = 0;
-        Game.puntaje = 0;
+        Game.score = 0;
     }
 
     public void play(){
@@ -61,7 +64,7 @@ public class Game extends javax.swing.JFrame {
             try {
                 nave.mover(this.keyPressed);
                 repaint();
-                sleep(50);
+                sleep(sleepTime);
             } catch (InterruptedException ex) {
                 Logger.getLogger(Game.class.getName()).log(Level.SEVERE, null, ex);
             }
@@ -95,11 +98,11 @@ public class Game extends javax.swing.JFrame {
         
         //FONDO
         g.setColor(Color.MAGENTA);
-        g.fillRect(0, 0, 500, 500);
+        g.fillRect(0, 0, Game.WINDOW_WIDTH, Game.WINDOW_HEIGHT);
         
         //DIBUJAR PUNTAJE
         g.setColor(Color.WHITE);
-        g.drawString("Points: " + Game.puntaje, 10, 40);
+        g.drawString("Score: " + Game.score, 10, 40);
         
         
         g.dispose();
@@ -109,9 +112,7 @@ public class Game extends javax.swing.JFrame {
 
         //DIBUJAR ENEMIGOS
         dibujarEnemigos();
-       
-        
-        
+
         bf.show();
     }
     /**

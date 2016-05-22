@@ -28,7 +28,7 @@ public class ControlarColisiones extends Thread{
                     Enemy enemy = enemigos.listaEnemy.get(i);
                     if ((nave.posX + nave.width) > enemy.posX && (nave.posX <= (enemy.posX + enemy.width)) &&
                         (nave.posY) >= enemy.posY && (nave.posY <= (enemy.posY + enemy.height))){
-                        Game.puntaje -= 1;
+                        Game.score -= enemy.getScore();
                         enemigos.listaEnemy.remove(i);
                         i--;
                         if (i < 0) break;
@@ -36,7 +36,6 @@ public class ControlarColisiones extends Thread{
                 } catch (Exception e){
                 }
             }
-            
             
             //CHECAR COLISION BALA - ENEMIGO
             for(int i = 0; i < nave.movimientoBala.listaBalas.size(); i++){
@@ -47,7 +46,7 @@ public class ControlarColisiones extends Thread{
                         if (bala == null || enemy == null) break;
                         if ((bala.posX + bala.width) > enemy.posX && (bala.posX <= (enemy.posX + enemy.width)) &&
                             (bala.posY) >= enemy.posY && (bala.posY <= (enemy.posY + enemy.height))){
-                            Game.puntaje += 1;
+                            Game.score += enemy.getScore();
                             enemigos.listaEnemy.remove(j);
                             nave.movimientoBala.listaBalas.remove(i);
                             i--;
@@ -57,7 +56,6 @@ public class ControlarColisiones extends Thread{
                     } catch (Exception e){
                         
                     }
-                    
                 }
             }
             try {

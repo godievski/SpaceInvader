@@ -16,10 +16,15 @@ public class Enemy extends Objeto {
     private static final int WIDTH = 15;
     private static final int HEIGHT = 15;
     private static final int VELOCIDAD = 5;
+    private int score;
     
     public Enemy(JFrame ventana){
         super(0, 0,VELOCIDAD, WIDTH, HEIGHT, ventana);
-        this.posX = (int)(WIDTH/2) + (int)(Math.random() * (500 - (int)(3*WIDTH/2)) ); ; //RANDOM
+        this.posX = (int)(WIDTH/2) + (int)( Math.random() * ((Game.WINDOW_WIDTH) - (int)(3*WIDTH/2)) ); ; //RANDOM
+        this.score = 10;
+    }
+    public int getScore(){
+        return this.score;
     }
     
 }

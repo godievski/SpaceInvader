@@ -13,7 +13,7 @@ import javax.swing.JFrame;
  */
 public class Bala extends Objeto{
     
-    private static final int WIDTH = 8;
+    private static final int WIDTH = 4;
     private static final int HEIGHT = 8;
     private static final int VELOCIDAD = 1;
     public Bala(int x, int y, JFrame ventana){

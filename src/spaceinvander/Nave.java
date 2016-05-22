@@ -18,11 +18,11 @@ import javax.swing.JFrame;
  */
 public class Nave extends Objeto{
     
-    private static final int POSX_INI = 240;
-    private static final int POSY_INI = 450;
     private static final int WIDTH = 20;
     private static final int HEIGHT = 20;
     private static final int VELOCIDAD = 10;
+    private static final int POSX_INI = (int)((Game.WINDOW_WIDTH - WIDTH)/2);
+    private static final int POSY_INI = Game.WINDOW_HEIGHT - HEIGHT - 20;
     
     public final MoverBalas movimientoBala;
     
@@ -37,9 +37,8 @@ public class Nave extends Objeto{
             if (this.posX >= WIDTH/2)
                 this.posX -= this.vel;
         } else if (dir == KeyEvent.VK_RIGHT){
-            if (this.posX <= (500 - 3*WIDTH/2 ))
-                this.posX += this.vel;
-            
+            if (this.posX <= ((Game.WINDOW_WIDTH) - (int)(3*WIDTH/2) ))
+                this.posX += this.vel;   
         }
     }
     
