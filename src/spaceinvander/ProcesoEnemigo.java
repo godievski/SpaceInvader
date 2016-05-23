@@ -17,29 +17,31 @@ import static java.lang.Thread.sleep;
  */
 public class ProcesoEnemigo extends Thread{
     public ArrayList<Enemy> listaEnemy;
-    private static final int sleepTime = 40;
-    private static final int intervalo = 720;
+    private static final int SLEEP_TIME = 15;
+    private static final int NEW_ENEMY_TIME = 1500;
     private static int contador = 0;
     
     public ProcesoEnemigo(){
         listaEnemy = new ArrayList<>();
     }
+    
+    @Override
     public void run() {
         while(true){
             try {
-                if (contador % intervalo == 0)
-                    this.listaEnemy.add(new Enemy(null));
+                if (contador % NEW_ENEMY_TIME == 0)
+                    this.listaEnemy.add(new Enemy());
                 
                 for (int i = 0; i < listaEnemy.size(); i++){
                     Enemy enemigo = listaEnemy.get(i);
                     enemigo.posY += enemigo.vel;
-                    if (enemigo.posY > Game.WINDOW_HEIGHT){
+                    if (enemigo.posY > (Game.WINDOW_HEIGHT)){
                         listaEnemy.remove(i);
                         i--;
                     }
                 }
-                sleep(sleepTime);
-                contador += sleepTime;
+                sleep(SLEEP_TIME);
+                contador += SLEEP_TIME;
             } catch (InterruptedException ex) {
                 Logger.getLogger(MoverBalas.class.getName()).log(Level.SEVERE, null, ex);
             }

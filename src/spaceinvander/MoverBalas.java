@@ -16,11 +16,12 @@ import java.util.logging.Logger;
 public class MoverBalas extends Thread{
     
     public ArrayList<Bala> listaBalas;
-    private static final int sleepTime = 5;
+    private static final int SLEEP_TIME = 5;
     
     public MoverBalas(){
-        listaBalas = new ArrayList<Bala>();
+        listaBalas = new ArrayList<>();
     }
+    @Override
     public void run() {
         while(true){
             try {
@@ -32,7 +33,7 @@ public class MoverBalas extends Thread{
                         i--;
                     }
                 }
-                sleep(sleepTime);
+                sleep(SLEEP_TIME);
             } catch (InterruptedException ex) {
                 Logger.getLogger(MoverBalas.class.getName()).log(Level.SEVERE, null, ex);
             }

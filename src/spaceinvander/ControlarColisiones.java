@@ -15,6 +15,7 @@ import java.util.logging.Logger;
 public class ControlarColisiones extends Thread{
     private Nave nave;
     private ProcesoEnemigo enemigos;
+    private static final int SLEEP_TIME = 5;
     public ControlarColisiones(Nave nave, ProcesoEnemigo enemigos){
         this.nave = nave;
         this.enemigos = enemigos;
@@ -59,7 +60,7 @@ public class ControlarColisiones extends Thread{
                 }
             }
             try {
-                sleep(2);
+                sleep(SLEEP_TIME);
                 //Ventana.puntaje += 1;
             } catch (InterruptedException ex) {
                 Logger.getLogger(ControlarColisiones.class.getName()).log(Level.SEVERE, null, ex);

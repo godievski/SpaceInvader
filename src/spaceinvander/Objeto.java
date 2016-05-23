@@ -5,9 +5,6 @@
  */
 package spaceinvander;
 
-import java.awt.Color;
-import java.awt.Graphics;
-import java.awt.image.BufferStrategy;
 import javax.swing.JFrame;
 
 /**
@@ -20,14 +17,13 @@ public class Objeto {
     protected int width;
     protected int height;
     protected int vel;
-    protected JFrame ventana;
-    public Objeto(int x, int y, int vel, int width, int height, JFrame ventana){
+
+    public Objeto(int x, int y, int vel, int width, int height){
         this.posX = x;
         this.posY = y;
         this.vel = vel;
         this.width = width;
         this.height = height;
-        this.ventana = ventana;
     }
     public int getPosX(){
         return this.posX;

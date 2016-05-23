@@ -6,18 +6,16 @@
 package spaceinvander;
 
 import javax.swing.JFrame;
+import javax.swing.JPanel;
 
 /**
  *
- * @author Godievski
+ * @author USUARIO
  */
-public class Bala extends Objeto{
+public class PanelDibujo extends JPanel{
+    private JFrame ventana;
     
-    protected static final int WIDTH = 4;
-    protected static final int HEIGHT = 8;
-    private static final int VELOCIDAD = 2;
-    public Bala(int x, int y){
-        super(x, y,VELOCIDAD, WIDTH, HEIGHT);
+    public PanelDibujo (JFrame ventana){
+        
     }
-    
 }

@@ -6,16 +6,11 @@
 package spaceinvander;
 
 import java.awt.Color;
-import java.awt.Event;
+import java.awt.Dimension;
 import java.awt.Graphics;
-import java.awt.Graphics2D;
 import java.awt.GraphicsConfiguration;
-import java.awt.GraphicsDevice;
-import java.awt.GraphicsEnvironment;
+import java.awt.Image;
 import java.awt.event.KeyEvent;
-import java.awt.image.BufferStrategy;
-import static java.lang.Thread.sleep;
-import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
@@ -30,27 +25,42 @@ public class Game extends javax.swing.JFrame {
     /**
      * Creates new form Ventana
      */
-    private Nave nave;
+    private final Nave nave;
     private int keyPressed;
-    private ProcesoEnemigo enemigos;
-    private ControlarColisiones controladorColisiones;
+    private boolean disparando;
+    private final ProcesoEnemigo enemigos;
+    private final ControlarColisiones controladorColisiones;
     protected static int score;
-    private final static int sleepTime = 50;
+    private final static int SLEEP_TIME = 10;
     protected final static int WINDOW_WIDTH = 400;
     protected final static int WINDOW_HEIGHT = 600;
     
     
+    /*TEST*/
+    private Image dibujoAux;
+    private Graphics gAux;
+    private Dimension dimAux;
+    private final Dimension dimPanel;
+    /**/
+    
+    /**
+     *
+     * @param graphicConf
+     */
     public Game(GraphicsConfiguration graphicConf) {
         super(graphicConf);
-        this.setIgnoreRepaint(true);
+        //this.setIgnoreRepaint(true);
         initComponents();
-        this.setBounds(500, 100, Game.WINDOW_WIDTH, Game.WINDOW_HEIGHT);
+        this.setBounds(500, 100, Game.WINDOW_WIDTH+6, Game.WINDOW_HEIGHT+28);
+        this.jPanel1.setSize(WINDOW_WIDTH, WINDOW_HEIGHT);
         this.setResizable(false);
+        this.createBufferStrategy(3);
         this.setVisible(true);
-        this.createBufferStrategy(2);
+        jPanel1.setDoubleBuffered(true);
         this.setTitle("SpaceInvader by Godievski");
-        //CENTRADO NAVE
-        nave = new Nave(this);
+        dimPanel = jPanel1.getSize();
+        //OBJETOS DEL JUEGO
+        nave = new Nave();
         this.enemigos = new ProcesoEnemigo();
         this.controladorColisiones = new ControlarColisiones(this.nave,this.enemigos);
         this.keyPressed = 0;
@@ -64,56 +74,64 @@ public class Game extends javax.swing.JFrame {
             try {
                 nave.mover(this.keyPressed);
                 repaint();
-                sleep(sleepTime);
+                sleep(SLEEP_TIME);
             } catch (InterruptedException ex) {
                 Logger.getLogger(Game.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
     }
     
-    private void dibujarEnemigos(){
-        
-        BufferStrategy buff = this.getBufferStrategy();
-        Graphics g = null;
+    private void dibujarEnemigos(Graphics g){
+
         if (enemigos == null || enemigos.listaEnemy == null)
             return;
         try {
-            g = buff.getDrawGraphics();
             g.setColor(Color.BLACK);
-            
             for (int i = 0; i < enemigos.listaEnemy.size(); i++){
                 Enemy enemy = enemigos.listaEnemy.get(i);
                 g.fillOval(enemy.posX, enemy.posY, enemy.width, enemy.height);
             }
-        } finally{
-            g.dispose();
+        } catch (Exception e){
+            JOptionPane.showMessageDialog(null,e.toString());
         }
     }
     
     @Override
+    public void update(Graphics graph){
+        paint(graph);
+    }
+    
+    @Override
     public void paint (Graphics graph){
-        super.paint(graph);
-        BufferStrategy bf = this.getBufferStrategy();
-        Graphics g = bf.getDrawGraphics();
+        
+        this.jPanel1.paint(graph);
+        if (gAux == null || dimAux == null || dimPanel.width != dimAux.width ||
+                dimPanel.height != dimAux.height){
+            dimAux = dimPanel;
+            dibujoAux = createImage(dimAux.width,dimAux.height);
+            gAux = dibujoAux.getGraphics();
+        }
+
+        Graphics g = jPanel1.getGraphics();
         
         //FONDO
-        g.setColor(Color.MAGENTA);
-        g.fillRect(0, 0, Game.WINDOW_WIDTH, Game.WINDOW_HEIGHT);
+        gAux.setColor(Color.MAGENTA);
+        gAux.fillRect(0, 0, Game.WINDOW_WIDTH, Game.WINDOW_HEIGHT);
         
         //DIBUJAR PUNTAJE
-        g.setColor(Color.WHITE);
-        g.drawString("Score: " + Game.score, 10, 40);
+        gAux.setColor(Color.WHITE);
+        gAux.drawString("Score: " + Game.score, 10, 20);
         
-        
-        g.dispose();
         //DIBUJAR NAVE Y ENEMIGOS
         if (nave != null)
-            nave.dibujar();
+            nave.dibujar(gAux);
 
         //DIBUJAR ENEMIGOS
-        dibujarEnemigos();
-
-        bf.show();
+        dibujarEnemigos(gAux);
+        
+        g.drawImage(dibujoAux, 0, 0, jPanel1);
+        
+        g.dispose();
     }
     /**
      * This method is called from within the constructor to initialize the form.
@@ -123,6 +141,8 @@ public class Game extends javax.swing.JFrame {
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
+
+        jPanel1 = new javax.swing.JPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         addKeyListener(new java.awt.event.KeyAdapter() {
@@ -134,15 +154,26 @@ public class Game extends javax.swing.JFrame {
             }
         });
 
+        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+        jPanel1.setLayout(jPanel1Layout);
+        jPanel1Layout.setHorizontalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 400, Short.MAX_VALUE)
+        );
+        jPanel1Layout.setVerticalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 300, Short.MAX_VALUE)
+        );
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 400, Short.MAX_VALUE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 300, Short.MAX_VALUE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
         pack();
@@ -170,5 +201,6 @@ public class Game extends javax.swing.JFrame {
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JPanel jPanel1;
     // End of variables declaration//GEN-END:variables
 }
