@@ -23,11 +23,11 @@ public class Nave extends Objeto{
     private static final int POSX_INI = (int)((Game.WINDOW_WIDTH - WIDTH)/2);
     private static final int POSY_INI = Game.WINDOW_HEIGHT - HEIGHT - 20;
     
-    public final MoverBalas movimientoBala;
+    public final GestorBalas movimientoBala;
     
     public Nave(){
         super(POSX_INI, POSY_INI, VELOCIDAD, Nave.WIDTH, Nave.HEIGHT);
-        movimientoBala = new MoverBalas();
+        movimientoBala = new GestorBalas();
         movimientoBala.start();
     }
     
@@ -36,23 +36,23 @@ public class Nave extends Objeto{
             if (this.posX >= VELOCIDAD)
                 this.posX -= this.vel;
         } else if (dir == KeyEvent.VK_RIGHT){
-            if (this.posX <= ((Game.WINDOW_WIDTH) - (int)(Nave.WIDTH) - 10))
+            if (this.posX <= ((Game.WINDOW_WIDTH) - (int)(Nave.WIDTH) - 6))
                 this.posX += this.vel;   
         }
     }
     
     public void dibujar(Graphics g){
-    
         try {
             //DIBUJAR NAVE
+            
             g.setColor(Color.CYAN);
             g.fillRect(posX, posY, WIDTH, HEIGHT);
-
+            
             //DIBUJAR BALAS
             g.setColor(Color.WHITE);
             for (int i = 0; i < movimientoBala.listaBalas.size(); i++){
                 Bala bala = this.movimientoBala.listaBalas.get(i);
-                g.fillRect(bala.posX, bala.posY, bala.width, bala.height);
+                bala.dibujar(g);
             }
         } catch (Exception e){
             JOptionPane.showMessageDialog(null,e.toString());

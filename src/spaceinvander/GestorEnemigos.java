@@ -5,23 +5,25 @@
  */
 package spaceinvander;
 
-import static java.lang.Thread.sleep;
+import java.awt.Color;
+import java.awt.Graphics;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import static java.lang.Thread.sleep;
+import javax.swing.JOptionPane;
 
 /**
  *
  * @author Godievski
  */
-public class ProcesoEnemigo extends Thread{
+public class GestorEnemigos extends Thread{
     public ArrayList<Enemy> listaEnemy;
     private static final int SLEEP_TIME = 15;
     private static final int NEW_ENEMY_TIME = 1500;
     private static int contador = 0;
     
-    public ProcesoEnemigo(){
+    public GestorEnemigos(){
         listaEnemy = new ArrayList<>();
     }
     
@@ -43,8 +45,20 @@ public class ProcesoEnemigo extends Thread{
                 sleep(SLEEP_TIME);
                 contador += SLEEP_TIME;
             } catch (InterruptedException ex) {
-                Logger.getLogger(MoverBalas.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(GestorBalas.class.getName()).log(Level.SEVERE, null, ex);
             }
+        }
+    }
+    
+     public void dibujar(Graphics g){
+        try {
+            g.setColor(Color.BLACK);
+            for (int i = 0; i < listaEnemy.size(); i++){
+                Enemy enemy = listaEnemy.get(i);
+                g.fillOval(enemy.posX, enemy.posY, enemy.width, enemy.height);
+            }
+        } catch (Exception e){
+            JOptionPane.showMessageDialog(null,e.toString());
         }
     }
     

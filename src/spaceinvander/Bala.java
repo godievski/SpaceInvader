@@ -5,6 +5,7 @@
  */
 package spaceinvander;
 
+import java.awt.Graphics;
 import javax.swing.JFrame;
 
 /**
@@ -20,4 +21,7 @@ public class Bala extends Objeto{
         super(x, y,VELOCIDAD, WIDTH, HEIGHT);
     }
     
+    public void dibujar(Graphics g){
+        g.fillRect(this.posX, this.posY, this.width, this.height);
+    }
 }

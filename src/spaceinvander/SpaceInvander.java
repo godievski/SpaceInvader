@@ -5,9 +5,6 @@
  */
 package spaceinvander;
 
-import java.awt.GraphicsConfiguration;
-import java.awt.GraphicsDevice;
-import java.awt.GraphicsEnvironment;
 
 /**
  *
@@ -19,13 +16,8 @@ public class SpaceInvander {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        // TODO code application logic here
-        GraphicsEnvironment graphEnv =
-        GraphicsEnvironment.getLocalGraphicsEnvironment();
-        GraphicsDevice graphDevice = graphEnv.getDefaultScreenDevice
-        ();
-        GraphicsConfiguration graphicConf = graphDevice.getDefaultConfiguration(); 
-        Game game = new Game(graphicConf);
+        
+        Game game = new Game();
         game.play();
     }
     

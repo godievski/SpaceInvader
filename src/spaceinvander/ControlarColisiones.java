@@ -14,9 +14,9 @@ import java.util.logging.Logger;
  */
 public class ControlarColisiones extends Thread{
     private Nave nave;
-    private ProcesoEnemigo enemigos;
+    private GestorEnemigos enemigos;
     private static final int SLEEP_TIME = 5;
-    public ControlarColisiones(Nave nave, ProcesoEnemigo enemigos){
+    public ControlarColisiones(Nave nave, GestorEnemigos enemigos){
         this.nave = nave;
         this.enemigos = enemigos;
     }

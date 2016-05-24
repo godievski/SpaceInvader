@@ -15,6 +15,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import static java.lang.Thread.sleep;
+import static java.lang.Thread.sleep;
 
 /**
  *
@@ -25,43 +26,40 @@ public class Game extends javax.swing.JFrame {
     /**
      * Creates new form Ventana
      */
-    private final Nave nave;
+    protected Nave nave;
     private int keyPressed;
     private boolean disparando;
-    private final ProcesoEnemigo enemigos;
+    protected final GestorEnemigos enemigos;
     private final ControlarColisiones controladorColisiones;
     protected static int score;
     private final static int SLEEP_TIME = 10;
     protected final static int WINDOW_WIDTH = 400;
     protected final static int WINDOW_HEIGHT = 600;
+    private final PanelDibujo panelDibujo;
     
-    
-    /*TEST*/
-    private Image dibujoAux;
-    private Graphics gAux;
-    private Dimension dimAux;
-    private final Dimension dimPanel;
-    /**/
     
     /**
      *
      * @param graphicConf
      */
-    public Game(GraphicsConfiguration graphicConf) {
-        super(graphicConf);
-        //this.setIgnoreRepaint(true);
+    public Game() {
+        this.setIgnoreRepaint(true);
         initComponents();
-        this.setBounds(500, 100, Game.WINDOW_WIDTH+6, Game.WINDOW_HEIGHT+28);
-        this.jPanel1.setSize(WINDOW_WIDTH, WINDOW_HEIGHT);
+        this.setBounds(500, 100, Game.WINDOW_WIDTH, Game.WINDOW_HEIGHT);
         this.setResizable(false);
-        this.createBufferStrategy(3);
+        this.createBufferStrategy(2);
         this.setVisible(true);
-        jPanel1.setDoubleBuffered(true);
         this.setTitle("SpaceInvader by Godievski");
-        dimPanel = jPanel1.getSize();
+
+        //PANEL
+        this.panelDibujo = new PanelDibujo(this, new Dimension(WINDOW_WIDTH,WINDOW_HEIGHT));
+        this.setContentPane(this.panelDibujo);
+        this.panelDibujo.setLayout(null);
+        this.panelDibujo.setDoubleBuffered(true);
+
         //OBJETOS DEL JUEGO
         nave = new Nave();
-        this.enemigos = new ProcesoEnemigo();
+        this.enemigos = new GestorEnemigos();
         this.controladorColisiones = new ControlarColisiones(this.nave,this.enemigos);
         this.keyPressed = 0;
         Game.score = 0;
@@ -81,57 +79,11 @@ public class Game extends javax.swing.JFrame {
         }
     }
     
-    private void dibujarEnemigos(Graphics g){
-
-        if (enemigos == null || enemigos.listaEnemy == null)
-            return;
-        try {
-            g.setColor(Color.BLACK);
-            for (int i = 0; i < enemigos.listaEnemy.size(); i++){
-                Enemy enemy = enemigos.listaEnemy.get(i);
-                g.fillOval(enemy.posX, enemy.posY, enemy.width, enemy.height);
-            }
-        } catch (Exception e){
-            JOptionPane.showMessageDialog(null,e.toString());
-        }
-    }
+   
     
     @Override
-    public void update(Graphics graph){
-        paint(graph);
-    }
-    
-    @Override
-    public void paint (Graphics graph){
-        
-        this.jPanel1.paint(graph);
-        if (gAux == null || dimAux == null || dimPanel.width != dimAux.width ||
-                dimPanel.height != dimAux.height){
-            dimAux = dimPanel;
-            dibujoAux = createImage(dimAux.width,dimAux.height);
-            gAux = dibujoAux.getGraphics();
-        }
-
-        Graphics g = jPanel1.getGraphics();
-        
-        //FONDO
-        gAux.setColor(Color.MAGENTA);
-        gAux.fillRect(0, 0, Game.WINDOW_WIDTH, Game.WINDOW_HEIGHT);
-        
-        //DIBUJAR PUNTAJE
-        gAux.setColor(Color.WHITE);
-        gAux.drawString("Score: " + Game.score, 10, 20);
-        
-        //DIBUJAR NAVE Y ENEMIGOS
-        if (nave != null)
-            nave.dibujar(gAux);
-
-        //DIBUJAR ENEMIGOS
-        dibujarEnemigos(gAux);
-        
-        g.drawImage(dibujoAux, 0, 0, jPanel1);
-        
-        g.dispose();
+    public void paint (Graphics g){
+        this.panelDibujo.paint(g);
     }
     /**
      * This method is called from within the constructor to initialize the form.
@@ -141,8 +93,6 @@ public class Game extends javax.swing.JFrame {
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
-
-        jPanel1 = new javax.swing.JPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         addKeyListener(new java.awt.event.KeyAdapter() {
@@ -154,26 +104,15 @@ public class Game extends javax.swing.JFrame {
             }
         });
 
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 400, Short.MAX_VALUE)
-        );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 300, Short.MAX_VALUE)
-        );
-
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGap(0, 400, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGap(0, 300, Short.MAX_VALUE)
         );
 
         pack();
@@ -201,6 +140,5 @@ public class Game extends javax.swing.JFrame {
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JPanel jPanel1;
     // End of variables declaration//GEN-END:variables
 }

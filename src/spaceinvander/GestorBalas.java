@@ -13,12 +13,12 @@ import java.util.logging.Logger;
  *
  * @author Godievski
  */
-public class MoverBalas extends Thread{
+public class GestorBalas extends Thread{
     
     public ArrayList<Bala> listaBalas;
     private static final int SLEEP_TIME = 5;
     
-    public MoverBalas(){
+    public GestorBalas(){
         listaBalas = new ArrayList<>();
     }
     @Override
@@ -35,7 +35,7 @@ public class MoverBalas extends Thread{
                 }
                 sleep(SLEEP_TIME);
             } catch (InterruptedException ex) {
-                Logger.getLogger(MoverBalas.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(GestorBalas.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
     }
