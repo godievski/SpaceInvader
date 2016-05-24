@@ -28,7 +28,7 @@ public class Game extends javax.swing.JFrame {
      */
     protected Nave nave;
     private int keyPressed;
-    private boolean disparando;
+    protected boolean disparando;
     protected final GestorEnemigos enemigos;
     private final ControlarColisiones controladorColisiones;
     protected static int score;
@@ -37,10 +37,11 @@ public class Game extends javax.swing.JFrame {
     protected final static int WINDOW_HEIGHT = 600;
     private final PanelDibujo panelDibujo;
     
+    ///TEST
+    private Disparar gestorDisparos;
     
     /**
      *
-     * @param graphicConf
      */
     public Game() {
         this.setIgnoreRepaint(true);
@@ -61,13 +62,16 @@ public class Game extends javax.swing.JFrame {
         nave = new Nave();
         this.enemigos = new GestorEnemigos();
         this.controladorColisiones = new ControlarColisiones(this.nave,this.enemigos);
+        this.gestorDisparos = new Disparar(this);
         this.keyPressed = 0;
+        this.disparando = false;
         Game.score = 0;
     }
 
     public void play(){
         this.enemigos.start();
         this.controladorColisiones.start();
+        this.gestorDisparos.start();
         while (true){
             try {
                 nave.mover(this.keyPressed);
@@ -78,9 +82,7 @@ public class Game extends javax.swing.JFrame {
             }
         }
     }
-    
-   
-    
+
     @Override
     public void paint (Graphics g){
         this.panelDibujo.paint(g);
@@ -95,6 +97,14 @@ public class Game extends javax.swing.JFrame {
     private void initComponents() {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                formMousePressed(evt);
+            }
+            public void mouseReleased(java.awt.event.MouseEvent evt) {
+                formMouseReleased(evt);
+            }
+        });
         addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
                 formKeyPressed(evt);
@@ -121,18 +131,40 @@ public class Game extends javax.swing.JFrame {
     private void formKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_formKeyPressed
         // TODO add your handling code here:
         int code = evt.getKeyCode();
-        
-        if (code == KeyEvent.VK_LEFT || code == KeyEvent.VK_RIGHT)
+        //MOVIMIENTO
+        if (code == KeyEvent.VK_A){
+            this.keyPressed = KeyEvent.VK_LEFT;
+        }else if (code == KeyEvent.VK_D){
+            this.keyPressed = KeyEvent.VK_RIGHT;
+        }else if (code == KeyEvent.VK_LEFT || code == KeyEvent.VK_RIGHT)
             this.keyPressed = code;
         
-            
-        if (code == KeyEvent.VK_SPACE)
-            nave.disparar();            
+        //DISPARO
+        if (code == KeyEvent.VK_SPACE){
+            this.disparando = true;           
+        }
+             
     }//GEN-LAST:event_formKeyPressed
 
     private void formKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_formKeyReleased
         // TODO add your handling code here:
+        int code = evt.getKeyCode();
+     
+        if (code == KeyEvent.VK_SPACE){
+            this.disparando = false;
+        }
     }//GEN-LAST:event_formKeyReleased
+
+    private void formMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_formMousePressed
+        // TODO add your handling code here:
+        this.disparando = true;
+    }//GEN-LAST:event_formMousePressed
+
+    private void formMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_formMouseReleased
+        // TODO add your handling code here:
+        this.disparando = false;
+        
+    }//GEN-LAST:event_formMouseReleased
 
     /**
      * @param args the command line arguments

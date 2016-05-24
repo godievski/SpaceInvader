@@ -37,10 +37,6 @@ public class GestorEnemigos extends Thread{
                 for (int i = 0; i < listaEnemy.size(); i++){
                     Enemy enemigo = listaEnemy.get(i);
                     enemigo.posY += enemigo.vel;
-                    if (enemigo.posY > (Game.WINDOW_HEIGHT)){
-                        listaEnemy.remove(i);
-                        i--;
-                    }
                 }
                 sleep(SLEEP_TIME);
                 contador += SLEEP_TIME;
