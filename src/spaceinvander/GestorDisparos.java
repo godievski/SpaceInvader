@@ -9,17 +9,18 @@ import static java.lang.Thread.sleep;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import static java.lang.Thread.sleep;
 
 /**
  *
  * @author USUARIO
  */
-public class Disparar extends Thread{
+public class GestorDisparos extends Thread{
     private final static int SLEEP_TIME = 10;
     private final static int DELAY_SHOTING = 150;
     private int time_shoting;
     private Game game;
-    public Disparar(Game game){
+    public GestorDisparos(Game game){
         this.time_shoting = 0;
         this.game = game;
     }

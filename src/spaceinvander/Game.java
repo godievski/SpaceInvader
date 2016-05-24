@@ -5,15 +5,12 @@
  */
 package spaceinvander;
 
-import java.awt.Color;
+
 import java.awt.Dimension;
 import java.awt.Graphics;
-import java.awt.GraphicsConfiguration;
-import java.awt.Image;
 import java.awt.event.KeyEvent;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.swing.JOptionPane;
 import static java.lang.Thread.sleep;
 import static java.lang.Thread.sleep;
 
@@ -31,14 +28,13 @@ public class Game extends javax.swing.JFrame {
     protected boolean disparando;
     protected final GestorEnemigos enemigos;
     private final ControlarColisiones controladorColisiones;
+    private GestorDisparos gestorDisparos;
     protected static int score;
     private final static int SLEEP_TIME = 10;
     protected final static int WINDOW_WIDTH = 400;
     protected final static int WINDOW_HEIGHT = 600;
     private final PanelDibujo panelDibujo;
     
-    ///TEST
-    private Disparar gestorDisparos;
     
     /**
      *
@@ -62,7 +58,7 @@ public class Game extends javax.swing.JFrame {
         nave = new Nave();
         this.enemigos = new GestorEnemigos();
         this.controladorColisiones = new ControlarColisiones(this.nave,this.enemigos);
-        this.gestorDisparos = new Disparar(this);
+        this.gestorDisparos = new GestorDisparos(this);
         this.keyPressed = 0;
         this.disparando = false;
         Game.score = 0;
