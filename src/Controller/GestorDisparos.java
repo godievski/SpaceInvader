@@ -5,6 +5,7 @@
  */
 package Controller;
 
+import Model.Bala;
 import Model.Nave;
 import static java.lang.Thread.sleep;
 import java.util.ArrayList;
@@ -22,11 +23,12 @@ import static java.lang.Thread.sleep;
 public class GestorDisparos extends Thread{
     private final static int SLEEP_TIME = 10;
     private final static int DELAY_SHOTING = 150;
-    private int time_shoting;
+    private int time_shoting_space;
+    private int time_shoting_mouse;
     private final Game game;
     private final Nave nave;
     public GestorDisparos(Game game){
-        this.time_shoting = 0;
+        this.time_shoting_mouse = time_shoting_space = 0;
         this.game = game;
         this.nave = game.getNave();
     }
@@ -35,13 +37,22 @@ public class GestorDisparos extends Thread{
     public void run() {
         while(true){
             try {
-                if (game.getDisparando()){
-                    if (time_shoting % DELAY_SHOTING == 0){
-                        this.nave.disparar();
+                if (game.getMousePressed()){
+                    if (time_shoting_mouse % DELAY_SHOTING == 0){
+                        this.nave.disparar(Bala.CLICK);
                     }
-                    this.time_shoting += SLEEP_TIME;
+                    this.time_shoting_mouse += SLEEP_TIME;
                 }else{
-                    this.time_shoting = 0;
+                    this.time_shoting_mouse = 0;
+                } 
+                /*ORIGINAL*/
+                if (game.getDisparando()){
+                    if (time_shoting_space % DELAY_SHOTING == 0){
+                        this.nave.disparar(Bala.SPACE);
+                    }
+                    this.time_shoting_space += SLEEP_TIME;
+                }else{
+                    this.time_shoting_space = 0;
                 }
                 sleep(SLEEP_TIME);
             } catch (InterruptedException ex) {

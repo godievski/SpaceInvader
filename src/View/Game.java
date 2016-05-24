@@ -38,11 +38,14 @@ public class Game extends javax.swing.JFrame {
     private ControlarColisiones controladorColisiones;
     private GestorDisparos gestorDisparos;
     private static int score;
+    private static int mouseX;
+    private static int mouseY;
     
     
     //FLAGS
     private int keyPressed;
     private boolean disparando;
+    private static boolean mousePressed;
     //CONSTANTS
     private final static int SLEEP_TIME = 10;
     public static final int WINDOW_WIDTH = 400;
@@ -62,6 +65,7 @@ public class Game extends javax.swing.JFrame {
 
         //PANEL
         this.panelDibujo = new PanelDibujo(this, new Dimension(WINDOW_WIDTH,WINDOW_HEIGHT));
+        this.panelDibujo.setFocusable(false);
         this.setContentPane(this.panelDibujo);
         this.panelDibujo.setLayout(null);
         this.panelDibujo.setDoubleBuffered(true);
@@ -73,6 +77,8 @@ public class Game extends javax.swing.JFrame {
         this.gestorDisparos = new GestorDisparos(this);
         this.keyPressed = 0;
         this.disparando = false;
+        Game.mouseX = Game.mouseY = 0;
+        Game.mousePressed = false;
         Game.score = 0;
     }
 
@@ -101,6 +107,15 @@ public class Game extends javax.swing.JFrame {
     }
     public static int getScore(){
         return Game.score;
+    }
+    public static int getMouseX(){
+        return Game.mouseX;
+    }
+    public static int getMouseY(){
+        return Game.mouseY;
+    }
+    public static boolean getMousePressed(){
+        return Game.mousePressed;
     }
 
     @Override
@@ -177,15 +192,17 @@ public class Game extends javax.swing.JFrame {
 
     private void formMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_formMousePressed
         // TODO add your handling code here:
-        evt.getX();
-        evt.getY();
-        this.disparando = true;
+        this.mouseX = evt.getX();
+        this.mouseY = evt.getY();
+        System.out.println("X: "+mouseX + "\nY: "+mouseY);
+        //this.disparando = true;
+        this.mousePressed = true;
     }//GEN-LAST:event_formMousePressed
 
     private void formMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_formMouseReleased
         // TODO add your handling code here:
-        this.disparando = false;
-        
+        //this.disparando = false;
+        this.mousePressed = false;
     }//GEN-LAST:event_formMouseReleased
 
     /**

@@ -34,10 +34,10 @@ public class Nave extends Objeto{
     
     public void mover(int dir){
         if (dir == KeyEvent.VK_LEFT){
-            if (this.posX >= VELOCIDAD)
+            if (this.posX >= 3*VELOCIDAD)
                 this.posX -= this.vel;
         } else if (dir == KeyEvent.VK_RIGHT){
-            if (this.posX <= ((Game.WINDOW_WIDTH) - (int)(Nave.WIDTH) - 6))
+            if (this.posX <= ((Game.WINDOW_WIDTH) - (int)(Nave.WIDTH) - 3*VELOCIDAD))
                 this.posX += this.vel;   
         }
     }
@@ -59,7 +59,9 @@ public class Nave extends Objeto{
             JOptionPane.showMessageDialog(null,e.toString());
         }
     }
-    public void disparar(){
-        this.movimientoBala.listaBalas.add(new Bala(this.posX + this.width/2 - Bala.WIDTH/2,this.posY - Bala.HEIGHT));
+    public void disparar(int tipo){
+        this.movimientoBala.listaBalas.add(new Bala(this.posX + this.width/2 - Bala.WIDTH/2,
+                this.posY - Bala.HEIGHT,
+                tipo,Game.getMouseX(),Game.getMouseY()));
     }
 }

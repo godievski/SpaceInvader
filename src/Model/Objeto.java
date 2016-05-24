@@ -14,6 +14,8 @@ import javax.swing.JFrame;
 public class Objeto {
     protected int posX;
     protected int posY;
+    protected double posXDouble;
+    protected double posYDouble;
     protected int width;
     protected int height;
     protected int vel;
@@ -34,8 +36,20 @@ public class Objeto {
     public int getPosY(){
         return this.posY;
     }
-    public void setPOsY(int value){
+    public void setPosY(int value){
         this.posY = value;
+    }
+    public double getPosXDouble(){
+        return this.posXDouble;
+    }
+    public void setPosXDouble(double value){
+        this.posXDouble = value;
+    }
+    public double getPosYDouble(){
+        return this.posXDouble;
+    }
+    public void setPosYDouble(double value){
+        this.posYDouble = value;
     }
     public int getWidth(){
         return this.width;
