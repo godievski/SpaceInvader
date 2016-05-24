@@ -13,8 +13,8 @@ import javax.swing.JFrame;
  */
 public class Enemy extends Objeto {
     
-    private static final int WIDTH = 15;
-    private static final int HEIGHT = 15;
+    private static final int WIDTH = 18;
+    private static final int HEIGHT = 18;
     private static final int VELOCIDAD = 1;
     private final int score;
     private static final int MIN = (Enemy.WIDTH/2 + Nave.WIDTH/2);

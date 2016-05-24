@@ -36,7 +36,8 @@ public class GestorEnemigos extends Thread{
                 
                 for (int i = 0; i < listaEnemy.size(); i++){
                     Enemy enemigo = listaEnemy.get(i);
-                    enemigo.posY += enemigo.vel;
+                    if (enemigo != null)
+                        enemigo.posY += enemigo.vel;
                 }
                 sleep(SLEEP_TIME);
                 contador += SLEEP_TIME;

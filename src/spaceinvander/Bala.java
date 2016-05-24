@@ -14,11 +14,24 @@ import javax.swing.JFrame;
  */
 public class Bala extends Objeto{
     
-    protected static final int WIDTH = 4;
-    protected static final int HEIGHT = 8;
+    protected static final int WIDTH = 5;
+    protected static final int HEIGHT = 7;
     private static final int VELOCIDAD = 2;
+    private int tipo;
+    
+    private static final int SPACE = 0;
+    private static final int CLICK = 1;
     public Bala(int x, int y){
         super(x, y,VELOCIDAD, WIDTH, HEIGHT);
+        tipo = SPACE;
+    }
+    
+    public void mover(){
+        if (tipo == SPACE)
+            this.posY -= this.vel;
+        else if (tipo == CLICK){
+            //
+        }
     }
     
     public void dibujar(Graphics g){

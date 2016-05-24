@@ -18,7 +18,6 @@ import javax.swing.JPanel;
  */
 public class PanelDibujo extends JPanel{
     private Game ventana;
-    
     private Image dibujoAux;
     private Graphics gAux;
     private Dimension dimAux;
@@ -50,7 +49,7 @@ public class PanelDibujo extends JPanel{
         
         //DIBUJAR PUNTAJE
         gAux.setColor(Color.WHITE);
-        gAux.drawString("Score: " + Game.score, 10, 20);
+        gAux.drawString("Score: " + Game.score, 10, 45);
         
         //DIBUJAR NAVE Y ENEMIGOS
         

@@ -28,7 +28,7 @@ public class GestorBalas extends Thread{
                 for (int i = 0; i < listaBalas.size(); i++){
                     Bala bala = listaBalas.get(i);
                     if (bala != null)
-                        bala.posY -= bala.vel;     
+                        bala.mover();
                 }
                 sleep(SLEEP_TIME);
             } catch (InterruptedException ex) {

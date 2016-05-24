@@ -153,6 +153,8 @@ public class Game extends javax.swing.JFrame {
 
     private void formMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_formMousePressed
         // TODO add your handling code here:
+        evt.getX();
+        evt.getY();
         this.disparando = true;
     }//GEN-LAST:event_formMousePressed
 
