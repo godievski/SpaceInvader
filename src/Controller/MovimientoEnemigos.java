@@ -3,8 +3,10 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package spaceinvander;
+package Controller;
 
+import Controller.MovimientoBalas;
+import Model.Enemy;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.util.ArrayList;
@@ -12,19 +14,22 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import static java.lang.Thread.sleep;
 import javax.swing.JOptionPane;
+import static java.lang.Thread.sleep;
+import static java.lang.Thread.sleep;
+import static java.lang.Thread.sleep;
 
 /**
  *
  * @author Godievski
  */
-public class GestorEnemigos extends Thread{
+public class MovimientoEnemigos extends Thread{
     public ArrayList<Enemy> listaEnemy;
     private static final int SLEEP_TIME = 15;
     private static final int NEW_ENEMY_TIME = 1500;
     private static int contador = 0;
     
-    public GestorEnemigos(){
-        listaEnemy = new ArrayList<>();
+    public MovimientoEnemigos(){
+        this.listaEnemy = new ArrayList<>();
     }
     
     @Override
@@ -36,13 +41,15 @@ public class GestorEnemigos extends Thread{
                 
                 for (int i = 0; i < listaEnemy.size(); i++){
                     Enemy enemigo = listaEnemy.get(i);
-                    if (enemigo != null)
-                        enemigo.posY += enemigo.vel;
+                    if (enemigo != null){
+                        enemigo.mover();
+                    }
+                        
                 }
                 sleep(SLEEP_TIME);
                 contador += SLEEP_TIME;
             } catch (InterruptedException ex) {
-                Logger.getLogger(GestorBalas.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(MovimientoBalas.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
     }
@@ -52,7 +59,8 @@ public class GestorEnemigos extends Thread{
             g.setColor(Color.BLACK);
             for (int i = 0; i < listaEnemy.size(); i++){
                 Enemy enemy = listaEnemy.get(i);
-                g.fillOval(enemy.posX, enemy.posY, enemy.width, enemy.height);
+                g.fillOval(enemy.getPosX(), enemy.getPosY(),
+                           enemy.getWidth(), enemy.getHeight());
             }
         } catch (Exception e){
             JOptionPane.showMessageDialog(null,e.toString());

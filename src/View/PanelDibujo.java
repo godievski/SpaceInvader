@@ -3,8 +3,10 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package spaceinvander;
+package View;
 
+import View.Game;
+import Model.Nave;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
@@ -17,14 +19,14 @@ import javax.swing.JPanel;
  * @author USUARIO
  */
 public class PanelDibujo extends JPanel{
-    private Game ventana;
+    private Game game;
     private Image dibujoAux;
     private Graphics gAux;
     private Dimension dimAux;
     private Dimension dimPanel;
     
-    public PanelDibujo (Game ventana, Dimension d){
-        this.ventana = ventana;
+    public PanelDibujo (Game game, Dimension d){
+        this.game = game;
         this.setSize(d);
         dimPanel = d;
     }
@@ -49,15 +51,14 @@ public class PanelDibujo extends JPanel{
         
         //DIBUJAR PUNTAJE
         gAux.setColor(Color.WHITE);
-        gAux.drawString("Score: " + Game.score, 10, 45);
+        gAux.drawString("Score: " + Game.getScore(), 10, 45);
         
-        //DIBUJAR NAVE Y ENEMIGOS
-        
-        if (ventana.nave != null)
-            ventana.nave.dibujar(gAux);
+        //DIBUJAR NAVE
+        if (game.getNave() != null)
+            game.getNave().dibujar(gAux);
 
         //DIBUJAR ENEMIGOS
-        ventana.enemigos.dibujar(gAux);
+        game.movimientoEnemigos.dibujar(gAux);
 
         g.drawImage(dibujoAux, 0, 0, this);
         g.dispose();

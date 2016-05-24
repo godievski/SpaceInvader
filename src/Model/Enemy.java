@@ -3,9 +3,10 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package spaceinvander;
+package Model;
 
 import javax.swing.JFrame;
+import View.Game;
 
 /**
  *
@@ -28,5 +29,7 @@ public class Enemy extends Objeto {
     public int getScore(){
         return this.score;
     }
-    
+    public void mover(){
+        this.posY += VELOCIDAD;
+    }
 }

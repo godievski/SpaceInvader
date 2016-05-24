@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package spaceinvander;
+package Model;
 
 import java.awt.Graphics;
 import javax.swing.JFrame;
@@ -14,8 +14,8 @@ import javax.swing.JFrame;
  */
 public class Bala extends Objeto{
     
-    protected static final int WIDTH = 5;
-    protected static final int HEIGHT = 7;
+    public static final int WIDTH = 5;
+    public static final int HEIGHT = 7;
     private static final int VELOCIDAD = 2;
     private int tipo;
     

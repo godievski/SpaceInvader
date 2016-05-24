@@ -3,14 +3,20 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package spaceinvander;
+package View;
 
 
+import Controller.MovimientoEnemigos;
+import Controller.ControlarColisiones;
+import Controller.GestorDisparos;
+import Model.Nave;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.event.KeyEvent;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import static java.lang.Thread.sleep;
+import static java.lang.Thread.sleep;
 import static java.lang.Thread.sleep;
 import static java.lang.Thread.sleep;
 
@@ -23,25 +29,31 @@ public class Game extends javax.swing.JFrame {
     /**
      * Creates new form Ventana
      */
-    protected Nave nave;
-    private int keyPressed;
-    protected boolean disparando;
-    protected final GestorEnemigos enemigos;
-    private final ControlarColisiones controladorColisiones;
-    private GestorDisparos gestorDisparos;
-    protected static int score;
-    private final static int SLEEP_TIME = 10;
-    protected final static int WINDOW_WIDTH = 400;
-    protected final static int WINDOW_HEIGHT = 600;
     private final PanelDibujo panelDibujo;
     
     
+    //OBJETOS
+    private Nave nave;
+    protected MovimientoEnemigos movimientoEnemigos;
+    private ControlarColisiones controladorColisiones;
+    private GestorDisparos gestorDisparos;
+    private static int score;
+    
+    
+    //FLAGS
+    private int keyPressed;
+    private boolean disparando;
+    //CONSTANTS
+    private final static int SLEEP_TIME = 10;
+    public static final int WINDOW_WIDTH = 400;
+    public static final int WINDOW_HEIGHT = 600;
     /**
+     * 
      *
      */
     public Game() {
-        this.setIgnoreRepaint(true);
         initComponents();
+        this.setIgnoreRepaint(true);
         this.setBounds(500, 100, Game.WINDOW_WIDTH, Game.WINDOW_HEIGHT);
         this.setResizable(false);
         this.createBufferStrategy(2);
@@ -56,8 +68,8 @@ public class Game extends javax.swing.JFrame {
 
         //OBJETOS DEL JUEGO
         nave = new Nave();
-        this.enemigos = new GestorEnemigos();
-        this.controladorColisiones = new ControlarColisiones(this.nave,this.enemigos);
+        this.movimientoEnemigos = new MovimientoEnemigos();
+        this.controladorColisiones = new ControlarColisiones(this.nave,this.movimientoEnemigos);
         this.gestorDisparos = new GestorDisparos(this);
         this.keyPressed = 0;
         this.disparando = false;
@@ -65,7 +77,7 @@ public class Game extends javax.swing.JFrame {
     }
 
     public void play(){
-        this.enemigos.start();
+        this.movimientoEnemigos.start();
         this.controladorColisiones.start();
         this.gestorDisparos.start();
         while (true){
@@ -77,6 +89,18 @@ public class Game extends javax.swing.JFrame {
                 Logger.getLogger(Game.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
+    }
+    public boolean getDisparando(){
+        return this.disparando;
+    }
+    public Nave getNave(){
+        return this.nave;
+    }
+    public static void modifyScore(int points){
+        Game.score += points;
+    }
+    public static int getScore(){
+        return Game.score;
     }
 
     @Override

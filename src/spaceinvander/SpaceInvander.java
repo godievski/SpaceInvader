@@ -5,6 +5,8 @@
  */
 package spaceinvander;
 
+import View.Game;
+
 
 /**
  *

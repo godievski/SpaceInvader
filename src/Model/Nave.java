@@ -3,13 +3,14 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package spaceinvander;
+package Model;
 
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.event.KeyEvent;
-import javax.swing.JFrame;
 import javax.swing.JOptionPane;
+import View.Game;
+import Controller.MovimientoBalas;
 
 /**
  *
@@ -17,17 +18,17 @@ import javax.swing.JOptionPane;
  */
 public class Nave extends Objeto{
     
-    protected static final int WIDTH = 20;
+    public static final int WIDTH = 20;
     protected static final int HEIGHT = 20;
     private static final int VELOCIDAD = 2;
     private static final int POSX_INI = (int)((Game.WINDOW_WIDTH - WIDTH)/2);
     private static final int POSY_INI = Game.WINDOW_HEIGHT - HEIGHT - 20;
     
-    public final GestorBalas movimientoBala;
+    public final MovimientoBalas movimientoBala;
     
     public Nave(){
         super(POSX_INI, POSY_INI, VELOCIDAD, Nave.WIDTH, Nave.HEIGHT);
-        movimientoBala = new GestorBalas();
+        movimientoBala = new MovimientoBalas();
         movimientoBala.start();
     }
     

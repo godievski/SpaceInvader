@@ -3,10 +3,14 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package spaceinvander;
+package Controller;
 
+import Model.Bala;
+import Model.Nave;
+import Model.Enemy;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import View.Game;
 
 /**
  *
@@ -14,9 +18,9 @@ import java.util.logging.Logger;
  */
 public class ControlarColisiones extends Thread{
     private Nave nave;
-    private GestorEnemigos enemigos;
+    private MovimientoEnemigos enemigos;
     private static final int SLEEP_TIME = 5;
-    public ControlarColisiones(Nave nave, GestorEnemigos enemigos){
+    public ControlarColisiones(Nave nave, MovimientoEnemigos enemigos){
         this.nave = nave;
         this.enemigos = enemigos;
     }
@@ -27,14 +31,16 @@ public class ControlarColisiones extends Thread{
             for(int i = 0; i < enemigos.listaEnemy.size();i++){
                 try{
                     Enemy enemy = enemigos.listaEnemy.get(i);
-                    if (enemy.posY > (Game.WINDOW_HEIGHT)){
+                    if (enemy.getPosY() > (Game.WINDOW_HEIGHT)){
                         enemigos.listaEnemy.remove(i);
                         i--;
                         continue;
                     }
-                    if ((nave.posX + nave.width) > enemy.posX && (nave.posX <= (enemy.posX + enemy.width)) &&
-                        (nave.posY) >= enemy.posY && (nave.posY <= (enemy.posY + enemy.height))){
-                        Game.score -= enemy.getScore();
+                    if ( ( (nave.getPosX() + nave.getWidth()) > enemy.getPosX()) &&
+                         (nave.getPosX() <= (enemy.getPosX() + enemy.getWidth() ) ) &&
+                         (nave.getPosY() >= enemy.getPosY() ) && 
+                         (nave.getPosY() <= (enemy.getPosY() + enemy.getHeight() ) ) ){
+                        Game.modifyScore(-enemy.getScore());
                         enemigos.listaEnemy.remove(i);
                         i--;
                         if (i < 0) break;
@@ -47,7 +53,7 @@ public class ControlarColisiones extends Thread{
             for(int i = 0; i < nave.movimientoBala.listaBalas.size(); i++){
                 Bala bala = nave.movimientoBala.listaBalas.get(i);
                 if (bala == null) break;
-                if (bala.posY < 0){
+                if (bala.getPosY() < 0){
                         nave.movimientoBala.listaBalas.remove(i);
                         i--;
                         continue;
@@ -56,9 +62,11 @@ public class ControlarColisiones extends Thread{
                     try{
                         Enemy enemy = enemigos.listaEnemy.get(j);
                         if (enemy == null) break;
-                        if ((bala.posX + bala.width) > enemy.posX && (bala.posX <= (enemy.posX + enemy.width)) &&
-                            (bala.posY) >= enemy.posY && (bala.posY <= (enemy.posY + enemy.height))){
-                            Game.score += enemy.getScore();
+                        if ((bala.getPosX() + bala.getWidth()) > enemy.getPosX() && 
+                            (bala.getPosX() <= (enemy.getPosX() + enemy.getWidth())) &&
+                            (bala.getPosY()) >= enemy.getPosY() && 
+                            (bala.getPosY() <= (enemy.getPosY() + enemy.getHeight()))){
+                            Game.modifyScore(enemy.getScore());
                             enemigos.listaEnemy.remove(j);
                             nave.movimientoBala.listaBalas.remove(i);
                             i--;
