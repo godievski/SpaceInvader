@@ -31,13 +31,11 @@ public class Game extends javax.swing.JFrame {
     
     
     //OBJETOS
-    private Nave nave;
+    private final Nave nave;
     protected MovimientoEnemigos movimientoEnemigos;
-    private ControlarColisiones controladorColisiones;
-    private GestorDisparos gestorDisparos;
+    private final ControlarColisiones controladorColisiones;
+    private final GestorDisparos gestorDisparos;
     private static int score;
-    private static int mouseX;
-    private static int mouseY;
     private static Point position;
     
     
@@ -61,6 +59,7 @@ public class Game extends javax.swing.JFrame {
         this.createBufferStrategy(2);
         this.setVisible(true);
         this.setTitle("SpaceInvader by Godievski");
+        
 
         //PANEL
         this.panelDibujo = new PanelDibujo(this, new Dimension(WINDOW_WIDTH,WINDOW_HEIGHT));
@@ -76,7 +75,6 @@ public class Game extends javax.swing.JFrame {
         this.gestorDisparos = new GestorDisparos(this);
         this.keyPressed = 0;
         this.disparando = false;
-        Game.mouseX = Game.mouseY = 0;
         Game.mousePressed = false;
         Game.score = 0;
         Game.position = this.getLocationOnScreen();
@@ -108,12 +106,7 @@ public class Game extends javax.swing.JFrame {
     public static int getScore(){
         return Game.score;
     }
-    public static int getMouseX(){
-        return Game.mouseX;
-    }
-    public static int getMouseY(){
-        return Game.mouseY;
-    }
+    
     public static boolean getMousePressed(){
         return Game.mousePressed;
     }
@@ -196,10 +189,12 @@ public class Game extends javax.swing.JFrame {
     private void formMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_formMousePressed
         // TODO add your handling code here:
         Game.mousePressed = true;
+        System.out.printf("Click!\n");
     }//GEN-LAST:event_formMousePressed
 
     private void formMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_formMouseReleased
         // TODO add your handling code here:
+        System.out.printf("Anit-Click!\n");
         Game.mousePressed = false;
     }//GEN-LAST:event_formMouseReleased
 

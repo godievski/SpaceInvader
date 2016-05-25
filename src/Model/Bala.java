@@ -17,7 +17,7 @@ public class Bala extends Objeto{
     public static final int WIDTH = 5;
     public static final int HEIGHT = 7;
     private static final int VELOCIDAD = 2;
-    private int tipo;
+    private final int tipo;
     private double vectorX;
     private double vectorY;
     
@@ -49,8 +49,8 @@ public class Bala extends Objeto{
         double y = yFinal - this.posY;
         double x = xFinal - this.posX;
         double r = Math.sqrt(y*y + x*x);
-        y = y/r;
-        x = x/r;
+        y = VELOCIDAD * y/r;
+        x = VELOCIDAD * x/r;
         this.vectorX = x;
         this.vectorY = y;
     }

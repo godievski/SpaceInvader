@@ -65,8 +65,11 @@ public class Nave extends Objeto{
         Point mousePoint = MouseInfo.getPointerInfo().getLocation();
         int mouseX = (int)( mousePoint.getX() - Game.getMyPosition().getX() );
         int mouseY = (int)( mousePoint.getY() - Game.getMyPosition().getY() );
-        this.movimientoBala.listaBalas.add(new Bala(this.posX + this.width/2 - Bala.WIDTH/2,
+        if (mouseY < this.posY){
+            this.movimientoBala.listaBalas.add(new Bala(this.posX + this.width/2 - Bala.WIDTH/2,
                 this.posY - Bala.HEIGHT,
                 tipo,mouseX,mouseY));
+        }
+        
     }
 }
