@@ -7,13 +7,9 @@ package Controller;
 
 import Model.Bala;
 import Model.Nave;
-import static java.lang.Thread.sleep;
-import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import View.Game;
-import static java.lang.Thread.sleep;
-import static java.lang.Thread.sleep;
 import static java.lang.Thread.sleep;
 
 /**
@@ -27,6 +23,7 @@ public class GestorDisparos extends Thread{
     private int time_shoting_mouse;
     private final Game game;
     private final Nave nave;
+  
     public GestorDisparos(Game game){
         this.time_shoting_mouse = time_shoting_space = 0;
         this.game = game;

@@ -11,6 +11,8 @@ import java.awt.event.KeyEvent;
 import javax.swing.JOptionPane;
 import View.Game;
 import Controller.MovimientoBalas;
+import java.awt.MouseInfo;
+import java.awt.Point;
 
 /**
  *
@@ -60,8 +62,11 @@ public class Nave extends Objeto{
         }
     }
     public void disparar(int tipo){
+        Point mousePoint = MouseInfo.getPointerInfo().getLocation();
+        int mouseX = (int)( mousePoint.getX() - Game.getMyPosition().getX() );
+        int mouseY = (int)( mousePoint.getY() - Game.getMyPosition().getY() );
         this.movimientoBala.listaBalas.add(new Bala(this.posX + this.width/2 - Bala.WIDTH/2,
                 this.posY - Bala.HEIGHT,
-                tipo,Game.getMouseX(),Game.getMouseY()));
+                tipo,mouseX,mouseY));
     }
 }

@@ -12,12 +12,10 @@ import Controller.GestorDisparos;
 import Model.Nave;
 import java.awt.Dimension;
 import java.awt.Graphics;
+import java.awt.Point;
 import java.awt.event.KeyEvent;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import static java.lang.Thread.sleep;
-import static java.lang.Thread.sleep;
-import static java.lang.Thread.sleep;
 import static java.lang.Thread.sleep;
 
 /**
@@ -40,6 +38,7 @@ public class Game extends javax.swing.JFrame {
     private static int score;
     private static int mouseX;
     private static int mouseY;
+    private static Point position;
     
     
     //FLAGS
@@ -80,6 +79,7 @@ public class Game extends javax.swing.JFrame {
         Game.mouseX = Game.mouseY = 0;
         Game.mousePressed = false;
         Game.score = 0;
+        Game.position = this.getLocationOnScreen();
     }
 
     public void play(){
@@ -116,6 +116,9 @@ public class Game extends javax.swing.JFrame {
     }
     public static boolean getMousePressed(){
         return Game.mousePressed;
+    }
+    public static Point getMyPosition(){
+        return Game.position;
     }
 
     @Override
@@ -192,17 +195,12 @@ public class Game extends javax.swing.JFrame {
 
     private void formMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_formMousePressed
         // TODO add your handling code here:
-        this.mouseX = evt.getX();
-        this.mouseY = evt.getY();
-        System.out.println("X: "+mouseX + "\nY: "+mouseY);
-        //this.disparando = true;
-        this.mousePressed = true;
+        Game.mousePressed = true;
     }//GEN-LAST:event_formMousePressed
 
     private void formMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_formMouseReleased
         // TODO add your handling code here:
-        //this.disparando = false;
-        this.mousePressed = false;
+        Game.mousePressed = false;
     }//GEN-LAST:event_formMouseReleased
 
     /**
