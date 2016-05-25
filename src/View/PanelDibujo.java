@@ -5,25 +5,22 @@
  */
 package View;
 
-import View.Game;
-import Model.Nave;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Image;
-import javax.swing.JFrame;
 import javax.swing.JPanel;
 
 /**
  *
  * @author USUARIO
  */
-public class PanelDibujo extends JPanel{
-    private Game game;
+public class PanelDibujo extends JPanel {
+    private final Game game;
     private Image dibujoAux;
     private Graphics gAux;
     private Dimension dimAux;
-    private Dimension dimPanel;
+    private final Dimension dimPanel;
     
     public PanelDibujo (Game game, Dimension d){
         this.game = game;

@@ -14,6 +14,8 @@ import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Point;
 import java.awt.event.KeyEvent;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import static java.lang.Thread.sleep;
@@ -67,6 +69,7 @@ public class Game extends javax.swing.JFrame {
         this.setContentPane(this.panelDibujo);
         this.panelDibujo.setLayout(null);
         this.panelDibujo.setDoubleBuffered(true);
+        
 
         //OBJETOS DEL JUEGO
         nave = new Nave();
@@ -189,12 +192,10 @@ public class Game extends javax.swing.JFrame {
     private void formMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_formMousePressed
         // TODO add your handling code here:
         Game.mousePressed = true;
-        System.out.printf("Click!\n");
     }//GEN-LAST:event_formMousePressed
 
     private void formMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_formMouseReleased
         // TODO add your handling code here:
-        System.out.printf("Anit-Click!\n");
         Game.mousePressed = false;
     }//GEN-LAST:event_formMouseReleased
 
