@@ -5,7 +5,6 @@
  */
 package Model;
 
-import javax.swing.JFrame;
 import View.Game;
 import java.awt.Graphics;
 

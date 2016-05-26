@@ -8,13 +8,9 @@ package Controller;
 import Model.Enemy;
 import java.awt.Color;
 import java.awt.Graphics;
-import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
-import static java.lang.Thread.sleep;
-import static java.lang.Thread.sleep;
-import static java.lang.Thread.sleep;
 import static java.lang.Thread.sleep;
 
 /**

@@ -11,7 +11,6 @@ import java.awt.Graphics;
 import java.awt.event.KeyEvent;
 import javax.swing.JOptionPane;
 import View.Game;
-import Controller.BulletMoving;
 import java.awt.MouseInfo;
 import java.awt.Point;
 

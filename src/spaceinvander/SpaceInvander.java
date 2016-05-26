@@ -13,7 +13,6 @@ import View.Game;
  * @author Godievski
  */
 public class SpaceInvander {
-
     /**
      * @param args the command line arguments
      */
