@@ -10,6 +10,7 @@ import Controller.MovimientoEnemigos;
 import Controller.ControlarColisiones;
 import Controller.GestorDisparos;
 import Model.Nave;
+import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Point;
@@ -42,9 +43,9 @@ public class Game extends javax.swing.JFrame {
     
     
     //FLAGS
-    private int keyPressed;
-    private boolean disparando;
-    private static boolean mousePressed;
+    protected int keyPressed;
+    protected boolean disparando;
+    static boolean mousePressed;
     //CONSTANTS
     private final static int SLEEP_TIME = 10;
     public static final int WINDOW_WIDTH = 400;
@@ -56,21 +57,20 @@ public class Game extends javax.swing.JFrame {
     public Game() {
         initComponents();
         this.setIgnoreRepaint(true);
-        this.setBounds(500, 100, Game.WINDOW_WIDTH, Game.WINDOW_HEIGHT);
+        this.setBounds(500, 100, Game.WINDOW_WIDTH+6, Game.WINDOW_HEIGHT+29);
         this.setResizable(false);
         this.createBufferStrategy(2);
         this.setVisible(true);
         this.setTitle("SpaceInvader by Godievski");
+        this.setFocusableWindowState(true);
         
-
         //PANEL
         this.panelDibujo = new PanelDibujo(this, new Dimension(WINDOW_WIDTH,WINDOW_HEIGHT));
         this.panelDibujo.setFocusable(false);
-        this.setContentPane(this.panelDibujo);
-        this.panelDibujo.setLayout(null);
-        this.panelDibujo.setDoubleBuffered(true);
+        this.panelDibujo.setIgnoreRepaint(false);
+        this.add(this.panelDibujo);
         
-
+        
         //OBJETOS DEL JUEGO
         nave = new Nave();
         this.movimientoEnemigos = new MovimientoEnemigos();
@@ -90,7 +90,7 @@ public class Game extends javax.swing.JFrame {
         while (true){
             try {
                 nave.mover(this.keyPressed);
-                repaint();
+                panelDibujo.repaint();
                 sleep(SLEEP_TIME);
             } catch (InterruptedException ex) {
                 Logger.getLogger(Game.class.getName()).log(Level.SEVERE, null, ex);
@@ -131,14 +131,6 @@ public class Game extends javax.swing.JFrame {
     private void initComponents() {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mousePressed(java.awt.event.MouseEvent evt) {
-                formMousePressed(evt);
-            }
-            public void mouseReleased(java.awt.event.MouseEvent evt) {
-                formMouseReleased(evt);
-            }
-        });
         addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
                 formKeyPressed(evt);
@@ -156,7 +148,7 @@ public class Game extends javax.swing.JFrame {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 300, Short.MAX_VALUE)
+            .addGap(0, 529, Short.MAX_VALUE)
         );
 
         pack();
@@ -164,6 +156,7 @@ public class Game extends javax.swing.JFrame {
 
     private void formKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_formKeyPressed
         // TODO add your handling code here:
+        
         int code = evt.getKeyCode();
         //MOVIMIENTO
         if (code == KeyEvent.VK_A){
@@ -177,7 +170,7 @@ public class Game extends javax.swing.JFrame {
         if (code == KeyEvent.VK_SPACE){
             this.disparando = true;           
         }
-             
+        
     }//GEN-LAST:event_formKeyPressed
 
     private void formKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_formKeyReleased
@@ -188,16 +181,6 @@ public class Game extends javax.swing.JFrame {
             this.disparando = false;
         }
     }//GEN-LAST:event_formKeyReleased
-
-    private void formMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_formMousePressed
-        // TODO add your handling code here:
-        Game.mousePressed = true;
-    }//GEN-LAST:event_formMousePressed
-
-    private void formMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_formMouseReleased
-        // TODO add your handling code here:
-        Game.mousePressed = false;
-    }//GEN-LAST:event_formMouseReleased
 
     /**
      * @param args the command line arguments

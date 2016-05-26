@@ -5,17 +5,21 @@
  */
 package View;
 
+import java.awt.Canvas;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Image;
+import java.awt.event.KeyEvent;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 import javax.swing.JPanel;
 
 /**
  *
  * @author USUARIO
  */
-public class PanelDibujo extends JPanel {
+public class PanelDibujo extends Canvas {
     private final Game game;
     private Image dibujoAux;
     private Graphics gAux;
@@ -23,10 +27,33 @@ public class PanelDibujo extends JPanel {
     private final Dimension dimPanel;
     
     public PanelDibujo (Game game, Dimension d){
+        this.initComponents();
         this.game = game;
         this.setSize(d);
         dimPanel = d;
+        
+        
     }
+    private void initComponents(){
+        this.addMouseListener(new java.awt.event.MouseAdapter() {
+            @Override
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                formMousePressed(evt);
+            }
+            @Override
+            public void mouseReleased(java.awt.event.MouseEvent evt) {
+                formMouseReleased(evt);
+            }
+        });
+    }
+    private void formMousePressed(java.awt.event.MouseEvent evt) {                                  
+        // TODO add your handling code here:
+        Game.mousePressed = true;
+    }                                 
+    private void formMouseReleased(java.awt.event.MouseEvent evt) {                                   
+        // TODO add your handling code here:
+        Game.mousePressed = false;
+    }  
     
     @Override
     public void update(Graphics g){
@@ -48,14 +75,15 @@ public class PanelDibujo extends JPanel {
         
         //DIBUJAR PUNTAJE
         gAux.setColor(Color.WHITE);
-        gAux.drawString("Score: " + Game.getScore(), 10, 45);
+        gAux.drawString("Score: " + Game.getScore(), 10, 20);
         
         //DIBUJAR NAVE
         if (game.getNave() != null)
             game.getNave().dibujar(gAux);
 
         //DIBUJAR ENEMIGOS
-        game.movimientoEnemigos.dibujar(gAux);
+        if (game != null)
+            game.movimientoEnemigos.dibujar(gAux);
 
         g.drawImage(dibujoAux, 0, 0, this);
         g.dispose();
