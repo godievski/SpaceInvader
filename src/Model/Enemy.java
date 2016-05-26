@@ -7,12 +7,13 @@ package Model;
 
 import javax.swing.JFrame;
 import View.Game;
+import java.awt.Graphics;
 
 /**
  *
  * @author Godievski
  */
-public class Enemy extends Objeto {
+public class Enemy extends Sprite {
     
     private static final int WIDTH = 18;
     private static final int HEIGHT = 18;
@@ -31,5 +32,8 @@ public class Enemy extends Objeto {
     }
     public void mover(){
         this.posY += VELOCIDAD;
+    }
+    public void dibujar(Graphics g){
+        g.fillOval(this.posX, this.posY, this.width, this.height);
     }
 }

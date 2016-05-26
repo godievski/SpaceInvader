@@ -5,13 +5,14 @@
  */
 package Model;
 
+import java.awt.Graphics;
 import javax.swing.JFrame;
 
 /**
  *
  * @author Godievski
  */
-public class Objeto {
+public abstract class Sprite {
     protected int posX;
     protected int posY;
     protected double posXDouble;
@@ -20,7 +21,7 @@ public class Objeto {
     protected int height;
     protected int vel;
 
-    public Objeto(int x, int y, int vel, int width, int height){
+    public Sprite(int x, int y, int vel, int width, int height){
         this.posX = x;
         this.posY = y;
         this.vel = vel;
@@ -57,5 +58,5 @@ public class Objeto {
     public int getHeight(){
         return this.height;
     }
-    
+    abstract public void dibujar(Graphics g);
 }

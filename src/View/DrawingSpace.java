@@ -19,14 +19,14 @@ import javax.swing.JPanel;
  *
  * @author USUARIO
  */
-public class PanelDibujo extends Canvas {
+public class DrawingSpace extends Canvas {
     private final Game game;
     private Image dibujoAux;
     private Graphics gAux;
     private Dimension dimAux;
     private final Dimension dimPanel;
     
-    public PanelDibujo (Game game, Dimension d){
+    public DrawingSpace (Game game, Dimension d){
         this.initComponents();
         this.game = game;
         this.setSize(d);
@@ -48,7 +48,8 @@ public class PanelDibujo extends Canvas {
     }
     private void formMousePressed(java.awt.event.MouseEvent evt) {                                  
         // TODO add your handling code here:
-        Game.mousePressed = true;
+        if (!Game.getSpacePressed())
+            Game.mousePressed = true;
     }                                 
     private void formMouseReleased(java.awt.event.MouseEvent evt) {                                   
         // TODO add your handling code here:

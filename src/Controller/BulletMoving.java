@@ -5,7 +5,7 @@
  */
 package Controller;
 
-import Model.Bala;
+import Model.Bullet;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -14,28 +14,27 @@ import java.util.logging.Logger;
  *
  * @author Godievski
  */
-public class MovimientoBalas extends Thread{
+public class BulletMoving extends Thread{
     
-    public ArrayList<Bala> listaBalas;
+    public GestorBalas listaBalas;
     private static final int SLEEP_TIME = 5;
     
-    public MovimientoBalas(){
-        listaBalas = new ArrayList<>();
+    public BulletMoving(GestorBalas listaBalas){
+        this.listaBalas = listaBalas;
     }
     @Override
     public void run() {
         while(true){
             try {
                 for (int i = 0; i < listaBalas.size(); i++){
-                    Bala bala = listaBalas.get(i);
+                    Bullet bala = listaBalas.get(i);
                     if (bala != null)
                         bala.mover();
                 }   
                 sleep(SLEEP_TIME);
             } catch (InterruptedException ex) {
-                Logger.getLogger(MovimientoBalas.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(BulletMoving.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
     }
-    
 }

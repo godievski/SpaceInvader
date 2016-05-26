@@ -16,7 +16,7 @@ import Model.Enemy;
  * @author Godievski
  */
 public class GestorEnemigos {
-    private ArrayList<Enemy> listaEnemigos;
+    private final ArrayList<Enemy> listaEnemigos;
     
     public GestorEnemigos(){
         this.listaEnemigos = new ArrayList<>();
@@ -39,10 +39,13 @@ public class GestorEnemigos {
             g.setColor(Color.BLACK);
             for (int i = 0; i < listaEnemigos.size(); i++){
                 Enemy enemy = listaEnemigos.get(i);
-                g.fillOval(enemy.getPosX(), enemy.getPosY(), enemy.getWidth(), enemy.getHeight());
+                enemy.dibujar(g);
             }
         } catch (Exception e){
             JOptionPane.showMessageDialog(null,e.toString());
         }
+    }
+    public int size(){
+        return this.listaEnemigos.size();
     }
 }

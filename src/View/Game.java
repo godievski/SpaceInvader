@@ -6,20 +6,20 @@
 package View;
 
 
-import Controller.MovimientoEnemigos;
-import Controller.ControlarColisiones;
+import Controller.EnemyMoving;
+import Controller.Collision;
 import Controller.GestorDisparos;
+import Controller.GestorEnemigos;
+import Controller.BulletMoving;
 import Model.Nave;
-import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Point;
 import java.awt.event.KeyEvent;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import static java.lang.Thread.sleep;
+
 
 /**
  *
@@ -30,22 +30,24 @@ public class Game extends javax.swing.JFrame {
     /**
      * Creates new form Ventana
      */
-    private final PanelDibujo panelDibujo;
-    
+    private final DrawingSpace panelDibujo;
     
     //OBJETOS
     private final Nave nave;
-    protected MovimientoEnemigos movimientoEnemigos;
-    private final ControlarColisiones controladorColisiones;
-    private final GestorDisparos gestorDisparos;
+    private final GestorEnemigos enemies;
     private static int score;
     private static Point position;
     
+    //THREADS
+    protected EnemyMoving movimientoEnemigos;
+    protected BulletMoving movimientoBalas;
+    private final Collision controladorColisiones;
+    private final GestorDisparos gestorDisparos;
     
     //FLAGS
     protected int keyPressed;
-    protected boolean disparando;
-    static boolean mousePressed;
+    public static boolean spacePressed;
+    public static boolean mousePressed;
     //CONSTANTS
     private final static int SLEEP_TIME = 10;
     public static final int WINDOW_WIDTH = 400;
@@ -65,19 +67,20 @@ public class Game extends javax.swing.JFrame {
         this.setFocusableWindowState(true);
         
         //PANEL
-        this.panelDibujo = new PanelDibujo(this, new Dimension(WINDOW_WIDTH,WINDOW_HEIGHT));
+        this.panelDibujo = new DrawingSpace(this, new Dimension(WINDOW_WIDTH,WINDOW_HEIGHT));
         this.panelDibujo.setFocusable(false);
         this.panelDibujo.setIgnoreRepaint(false);
         this.add(this.panelDibujo);
         
-        
         //OBJETOS DEL JUEGO
-        nave = new Nave();
-        this.movimientoEnemigos = new MovimientoEnemigos();
-        this.controladorColisiones = new ControlarColisiones(this.nave,this.movimientoEnemigos);
+        this.nave = new Nave();
+        this.enemies = new GestorEnemigos();
+        this.movimientoEnemigos = new EnemyMoving(enemies);
+        this.movimientoBalas = new BulletMoving(nave.getBalas());
+        this.controladorColisiones = new Collision(this.nave,this.enemies);
         this.gestorDisparos = new GestorDisparos(this);
         this.keyPressed = 0;
-        this.disparando = false;
+        Game.spacePressed = false;
         Game.mousePressed = false;
         Game.score = 0;
         Game.position = this.getLocationOnScreen();
@@ -85,6 +88,7 @@ public class Game extends javax.swing.JFrame {
 
     public void play(){
         this.movimientoEnemigos.start();
+        this.movimientoBalas.start();
         this.controladorColisiones.start();
         this.gestorDisparos.start();
         while (true){
@@ -97,9 +101,7 @@ public class Game extends javax.swing.JFrame {
             }
         }
     }
-    public boolean getDisparando(){
-        return this.disparando;
-    }
+    
     public Nave getNave(){
         return this.nave;
     }
@@ -112,6 +114,9 @@ public class Game extends javax.swing.JFrame {
     
     public static boolean getMousePressed(){
         return Game.mousePressed;
+    }
+    public static boolean getSpacePressed(){
+        return Game.spacePressed;
     }
     public static Point getMyPosition(){
         return Game.position;
@@ -168,7 +173,7 @@ public class Game extends javax.swing.JFrame {
         
         //DISPARO
         if (code == KeyEvent.VK_SPACE){
-            this.disparando = true;           
+            Game.spacePressed = true;           
         }
         
     }//GEN-LAST:event_formKeyPressed
@@ -178,7 +183,7 @@ public class Game extends javax.swing.JFrame {
         int code = evt.getKeyCode();
      
         if (code == KeyEvent.VK_SPACE){
-            this.disparando = false;
+            Game.spacePressed = false;
         }
     }//GEN-LAST:event_formKeyReleased
 

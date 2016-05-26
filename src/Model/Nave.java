@@ -5,12 +5,13 @@
  */
 package Model;
 
+import Controller.GestorBalas;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.event.KeyEvent;
 import javax.swing.JOptionPane;
 import View.Game;
-import Controller.MovimientoBalas;
+import Controller.BulletMoving;
 import java.awt.MouseInfo;
 import java.awt.Point;
 
@@ -18,20 +19,23 @@ import java.awt.Point;
  *
  * @author Godievski
  */
-public class Nave extends Objeto{
+public class Nave extends Sprite{
     
-    public static final int WIDTH = 20;
+    protected static final int WIDTH = 20;
     protected static final int HEIGHT = 20;
     private static final int VELOCIDAD = 2;
     private static final int POSX_INI = (int)((Game.WINDOW_WIDTH - WIDTH)/2);
     private static final int POSY_INI = Game.WINDOW_HEIGHT - HEIGHT - 20;
-    
-    public final MovimientoBalas movimientoBala;
+   
+    private final GestorBalas balas;
     
     public Nave(){
         super(POSX_INI, POSY_INI, VELOCIDAD, Nave.WIDTH, Nave.HEIGHT);
-        movimientoBala = new MovimientoBalas();
-        movimientoBala.start();
+        this.balas = new GestorBalas();
+    }
+    
+    public GestorBalas getBalas(){
+        return this.balas;
     }
     
     public void mover(int dir){
@@ -47,16 +51,12 @@ public class Nave extends Objeto{
     public void dibujar(Graphics g){
         try {
             //DIBUJAR NAVE
-            
             g.setColor(Color.CYAN);
             g.fillRect(posX, posY, WIDTH, HEIGHT);
             
             //DIBUJAR BALAS
-            g.setColor(Color.WHITE);
-            for (int i = 0; i < movimientoBala.listaBalas.size(); i++){
-                Bala bala = this.movimientoBala.listaBalas.get(i);
-                bala.dibujar(g);
-            }
+            balas.dibujar(g);
+            
         } catch (Exception e){
             JOptionPane.showMessageDialog(null,e.toString());
         }
@@ -66,8 +66,8 @@ public class Nave extends Objeto{
         int mouseX = (int)( mousePoint.getX() - Game.getMyPosition().getX() );
         int mouseY = (int)( mousePoint.getY() - Game.getMyPosition().getY() );
         if (mouseY < this.posY){
-            this.movimientoBala.listaBalas.add(new Bala(this.posX + this.width/2 - Bala.WIDTH/2,
-                this.posY - Bala.HEIGHT,
+            balas.add(new Bullet(this.posX + this.width/2 - Bullet.WIDTH/2,
+                this.posY - Bullet.HEIGHT,
                 tipo,mouseX,mouseY));
         }
         

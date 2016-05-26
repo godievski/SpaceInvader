@@ -5,30 +5,29 @@
  */
 package Controller;
 
-import Model.Bala;
+import Model.Bullet;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
-import static Model.Nave.WIDTH;
 
 /**
  *
  * @author Godievski
  */
 public class GestorBalas {
-    private ArrayList<Bala> listaBalas;
+    private final ArrayList<Bullet> listaBalas;
     
     public GestorBalas(){
         this.listaBalas = new ArrayList<>();
     }
-    public Bala get(int index){
+    public Bullet get(int index){
         if (index < this.listaBalas.size()){
             return this.listaBalas.get(index);
         }
         return null;
     }
-    public void add(Bala bala){
+    public void add(Bullet bala){
         this.listaBalas.add(bala);
     }
     public void remove(int index){
@@ -39,11 +38,14 @@ public class GestorBalas {
             //DIBUJAR BALAS
             g.setColor(Color.WHITE);
             for (int i = 0; i < listaBalas.size(); i++){
-                Bala bala = this.listaBalas.get(i);
+                Bullet bala = this.listaBalas.get(i);
                 bala.dibujar(g);
             }
         } catch (Exception e){
             JOptionPane.showMessageDialog(null,e.toString());
         }
+    }
+    public int size(){
+        return this.listaBalas.size();
     }
 }

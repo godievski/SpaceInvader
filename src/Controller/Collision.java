@@ -5,7 +5,7 @@
  */
 package Controller;
 
-import Model.Bala;
+import Model.Bullet;
 import Model.Nave;
 import Model.Enemy;
 import java.util.logging.Level;
@@ -16,23 +16,23 @@ import View.Game;
  *
  * @author Godievski
  */
-public class ControlarColisiones extends Thread{
-    private Nave nave;
-    private MovimientoEnemigos enemigos;
+public class Collision extends Thread{
+    private final Nave nave;
+    private final GestorEnemigos listEnemy;
     private static final int SLEEP_TIME = 5;
-    public ControlarColisiones(Nave nave, MovimientoEnemigos enemigos){
+    public Collision(Nave nave, GestorEnemigos listEnemy){
         this.nave = nave;
-        this.enemigos = enemigos;
+        this.listEnemy = listEnemy;
     }
     @Override
     public void run(){
         while(true){
             //CHECAR COLISION NAVE - ENEMIGO
-            for(int i = 0; i < enemigos.listaEnemy.size();i++){
+            for(int i = 0; i < listEnemy.size();i++){
                 try{
-                    Enemy enemy = enemigos.listaEnemy.get(i);
+                    Enemy enemy = listEnemy.get(i);
                     if (enemy.getPosY() > (Game.WINDOW_HEIGHT)){
-                        enemigos.listaEnemy.remove(i);
+                        listEnemy.remove(i);
                         i--;
                         continue;
                     }
@@ -41,7 +41,7 @@ public class ControlarColisiones extends Thread{
                          (nave.getPosY() >= enemy.getPosY() ) && 
                          (nave.getPosY() <= (enemy.getPosY() + enemy.getHeight() ) ) ){
                         Game.modifyScore(-enemy.getScore());
-                        enemigos.listaEnemy.remove(i);
+                        listEnemy.remove(i);
                         i--;
                         if (i < 0) break;
                     }
@@ -50,25 +50,26 @@ public class ControlarColisiones extends Thread{
             }
             
             //CHECAR COLISION BALA - ENEMIGO
-            for(int i = 0; i < nave.movimientoBala.listaBalas.size(); i++){
-                Bala bala = nave.movimientoBala.listaBalas.get(i);
+            GestorBalas listaBalas = nave.getBalas();
+            for(int i = 0; i < listaBalas.size(); i++){
+                Bullet bala = listaBalas.get(i);
                 if (bala == null) break;
                 if (bala.getPosY() < 0){
-                        nave.movimientoBala.listaBalas.remove(i);
+                        listaBalas.remove(i);
                         i--;
                         continue;
                     }
-                for (int j = 0; j < enemigos.listaEnemy.size(); j++){
+                for (int j = 0; j < listEnemy.size(); j++){
                     try{
-                        Enemy enemy = enemigos.listaEnemy.get(j);
+                        Enemy enemy = listEnemy.get(j);
                         if (enemy == null) break;
                         if ((bala.getPosX() + bala.getWidth()) > enemy.getPosX() && 
                             (bala.getPosX() <= (enemy.getPosX() + enemy.getWidth())) &&
                             (bala.getPosY()) >= enemy.getPosY() && 
                             (bala.getPosY() <= (enemy.getPosY() + enemy.getHeight()))){
                             Game.modifyScore(enemy.getScore());
-                            enemigos.listaEnemy.remove(j);
-                            nave.movimientoBala.listaBalas.remove(i);
+                            listEnemy.remove(j);
+                            listaBalas.remove(i);
                             i--;
                             j--;
                             if (i < 0) break;
@@ -82,7 +83,7 @@ public class ControlarColisiones extends Thread{
                 sleep(SLEEP_TIME);
                 //Ventana.puntaje += 1;
             } catch (InterruptedException ex) {
-                Logger.getLogger(ControlarColisiones.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(Collision.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
     }

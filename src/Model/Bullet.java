@@ -12,7 +12,7 @@ import javax.swing.JFrame;
  *
  * @author Godievski
  */
-public class Bala extends Objeto{
+public class Bullet extends Sprite{
     
     public static final int WIDTH = 5;
     public static final int HEIGHT = 7;
@@ -23,11 +23,11 @@ public class Bala extends Objeto{
     
     public static final int SPACE = 0;
     public static final int CLICK = 1;
-    public Bala(int x, int y){
+    public Bullet(int x, int y){
         super(x, y,VELOCIDAD, WIDTH, HEIGHT);
         tipo = SPACE;
     }
-    public Bala(int x, int y, int tipo, double mouseX, double mouseY){
+    public Bullet(int x, int y, int tipo, double mouseX, double mouseY){
         super(x, y,VELOCIDAD, WIDTH, HEIGHT);
         this.posXDouble = x;
         this.posYDouble = y;

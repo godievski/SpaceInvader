@@ -5,15 +5,14 @@
  */
 package Controller;
 
-import Controller.MovimientoBalas;
 import Model.Enemy;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import static java.lang.Thread.sleep;
 import javax.swing.JOptionPane;
+import static java.lang.Thread.sleep;
 import static java.lang.Thread.sleep;
 import static java.lang.Thread.sleep;
 import static java.lang.Thread.sleep;
@@ -22,14 +21,14 @@ import static java.lang.Thread.sleep;
  *
  * @author Godievski
  */
-public class MovimientoEnemigos extends Thread{
-    public ArrayList<Enemy> listaEnemy;
+public class EnemyMoving extends Thread{
+    public GestorEnemigos listaEnemy;
     private static final int SLEEP_TIME = 15;
     private static final int NEW_ENEMY_TIME = 1500;
     private static int contador = 0;
     
-    public MovimientoEnemigos(){
-        this.listaEnemy = new ArrayList<>();
+    public EnemyMoving(GestorEnemigos listEnemy){
+        this.listaEnemy = listEnemy;
     }
     
     @Override
@@ -49,7 +48,7 @@ public class MovimientoEnemigos extends Thread{
                 sleep(SLEEP_TIME);
                 contador += SLEEP_TIME;
             } catch (InterruptedException ex) {
-                Logger.getLogger(MovimientoBalas.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(BulletMoving.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
     }
