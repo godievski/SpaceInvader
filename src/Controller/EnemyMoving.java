@@ -20,19 +20,32 @@ import static java.lang.Thread.sleep;
 public class EnemyMoving extends Thread{
     public GestorEnemigos listaEnemy;
     private static final int SLEEP_TIME = 15;
-    private static final int NEW_ENEMY_TIME = 1500;
+    private static final int NEW_ENEMY_TIME = 900;
     private static int contador = 0;
-    
+    private boolean playing;
     public EnemyMoving(GestorEnemigos listEnemy){
         this.listaEnemy = listEnemy;
+        this.playing = true;
+    }
+    
+    
+    public void stopIt(){
+        this.playing = false;
+    }
+    
+    public boolean isPlaying(){
+        return this.playing;
     }
     
     @Override
     public void run() {
-        while(true){
+        playing = true;
+        while(playing){
             try {
-                if (contador % NEW_ENEMY_TIME == 0)
+                if (contador % NEW_ENEMY_TIME == 0){
                     this.listaEnemy.add(new Enemy());
+                }
+                    
                 
                 for (int i = 0; i < listaEnemy.size(); i++){
                     Enemy enemigo = listaEnemy.get(i);

@@ -23,16 +23,27 @@ public class GestorDisparos extends Thread{
     private int time_shoting_mouse;
     private final Game game;
     private final Nave nave;
+    private boolean playing;
   
     public GestorDisparos(Game game){
         this.time_shoting_mouse = time_shoting_space = 0;
         this.game = game;
         this.nave = game.getNave();
+        this.playing = true;
+    }
+    
+    public void stopIt(){
+        this.playing = false;
+    }
+    
+    public boolean isPlaying(){
+        return this.playing;
     }
     
     @Override
     public void run() {
-        while(true){
+        playing = true;
+        while(playing){
             try {
                 this.procesarDisparo();
                 sleep(SLEEP_TIME);
@@ -57,5 +68,4 @@ public class GestorDisparos extends Thread{
             this.time_shoting_space = 0;
         }
     }
-    
 }

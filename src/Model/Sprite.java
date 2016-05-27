@@ -17,13 +17,25 @@ public abstract class Sprite {
     protected int width;
     protected int height;
     protected double vel;
+    protected int hp;
 
-    public Sprite(int x, int y, double vel, int width, int height){
+    public Sprite(int x, int y, double vel, int width, int height, int hp){
         this.posX = x;
         this.posY = y;
         this.vel = vel;
         this.width = width;
         this.height = height;
+        this.hp = hp;
+    }
+    
+    public int getHP(){
+        return this.hp;
+    }
+    public void setHP(int value){
+        this.hp = value;
+    }
+    public void removeHP(){
+        this.hp -= 1;
     }
     public double getPosX(){
         return this.posX;

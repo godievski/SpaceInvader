@@ -20,13 +20,26 @@ public class Collision extends Thread{
     private final Nave nave;
     private final GestorEnemigos listEnemy;
     private static final int SLEEP_TIME = 5;
+    private boolean playing;
+    
     public Collision(Nave nave, GestorEnemigos listEnemy){
         this.nave = nave;
         this.listEnemy = listEnemy;
+        this.playing = true;
     }
+    
+    public void stopIt(){
+        this.playing = false;
+    }
+    
+    public boolean isPlaying(){
+        return this.playing;
+    }
+    
     @Override
     public void run(){
-        while(true){
+        playing = true;
+        while(playing){
             //CHECAR COLISION NAVE - ENEMIGO
             for(int i = 0; i < listEnemy.size();i++){
                 try{
@@ -40,9 +53,10 @@ public class Collision extends Thread{
                          (nave.getPosXInt() <= (enemy.getPosXInt() + enemy.getWidth() ) ) &&
                          (nave.getPosYInt() >= enemy.getPosYInt() ) && 
                          (nave.getPosYInt() <= (enemy.getPosYInt() + enemy.getHeight() ) ) ){
-                        Game.modifyScore(-enemy.getScore());
+                        nave.removeHP();
                         listEnemy.remove(i);
-                        i--;
+                        i--;    
+                        
                         if (i < 0) break;
                     }
                 } catch (Exception e){
@@ -67,11 +81,14 @@ public class Collision extends Thread{
                             (bala.getPosXInt() <= (enemy.getPosXInt() + enemy.getWidth())) &&
                             (bala.getPosYInt()) >= enemy.getPosYInt() && 
                             (bala.getPosYInt() <= (enemy.getPosYInt() + enemy.getHeight()))){
-                            Game.modifyScore(enemy.getScore());
-                            listEnemy.remove(j);
+                            enemy.removeHP();
+                            if (enemy.getHP() <= 0){
+                                Game.modifyScore(enemy.getScore());
+                                listEnemy.remove(j);
+                                j--;
+                            }
                             listaBalas.remove(i);
                             i--;
-                            j--;
                             if (i < 0) break;
                         }
                     } catch (Exception e){

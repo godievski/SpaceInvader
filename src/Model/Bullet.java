@@ -23,11 +23,11 @@ public class Bullet extends Sprite{
     public static final int SPACE = 0;
     public static final int CLICK = 1;
     public Bullet(int x, int y){
-        super(x, y,VELOCIDAD, WIDTH, HEIGHT);
+        super(x, y,VELOCIDAD, WIDTH, HEIGHT,1);
         tipo = SPACE;
     }
     public Bullet(int x, int y, int tipo, double mouseX, double mouseY){
-        super(x, y,VELOCIDAD, WIDTH, HEIGHT);
+        super(x, y,VELOCIDAD, WIDTH, HEIGHT,1);
         this.tipo = tipo;
         calcularVector(mouseX,mouseY);
     }

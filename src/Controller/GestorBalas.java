@@ -48,4 +48,7 @@ public class GestorBalas {
     public int size(){
         return this.listaBalas.size();
     }
+    public void clear(){
+        this.listaBalas.clear();
+    }
 }

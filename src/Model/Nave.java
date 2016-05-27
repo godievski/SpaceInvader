@@ -8,7 +8,6 @@ package Model;
 import Controller.GestorBalas;
 import java.awt.Color;
 import java.awt.Graphics;
-import java.awt.event.KeyEvent;
 import javax.swing.JOptionPane;
 import View.Game;
 import java.awt.MouseInfo;
@@ -22,14 +21,15 @@ public class Nave extends Sprite{
     
     protected static final int WIDTH = 20;
     protected static final int HEIGHT = 20;
-    private static final double VELOCIDAD = 1.5;
-    private static final int POSX_INI = (int)((Game.WINDOW_WIDTH - WIDTH)/2);
-    private static final int POSY_INI = Game.WINDOW_HEIGHT - HEIGHT - 20;
+    private static final double VELOCIDAD = 2.2;
+    private static final int HP = 4;
+    public static final int POSX_INI = (int)((Game.WINDOW_WIDTH - WIDTH)/2);
+    public static final int POSY_INI = Game.WINDOW_HEIGHT - HEIGHT - 20;
    
     private final GestorBalas balas;
     
     public Nave(){
-        super(POSX_INI, POSY_INI, VELOCIDAD, Nave.WIDTH, Nave.HEIGHT);
+        super(POSX_INI, POSY_INI, VELOCIDAD, Nave.WIDTH, Nave.HEIGHT, Nave.HP);
         this.balas = new GestorBalas();
     }
     

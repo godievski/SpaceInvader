@@ -41,8 +41,8 @@ public class Game extends javax.swing.JFrame {
     //THREADS
     protected EnemyMoving movimientoEnemigos;
     protected BulletMoving movimientoBalas;
-    private final Collision controladorColisiones;
-    private final GestorDisparos gestorDisparos;
+    private Collision controladorColisiones;
+    private GestorDisparos gestorDisparos;
     
     //FLAGS
     protected boolean keyUp;
@@ -93,19 +93,72 @@ public class Game extends javax.swing.JFrame {
     }
 
     public void play(){
-        this.movimientoEnemigos.start();
-        this.movimientoBalas.start();
-        this.controladorColisiones.start();
-        this.gestorDisparos.start();
-        while (true){
-            try {
-                nave.mover(keyLeft, keyRight, keyUp, keyDown);
-                panelDibujo.repaint();
-                sleep(SLEEP_TIME);
-            } catch (InterruptedException ex) {
-                Logger.getLogger(Game.class.getName()).log(Level.SEVERE, null, ex);
+        while(true){
+            //MENU            
+            
+            //INICIALIZACION
+            this.newGame();
+            this.movimientoEnemigos.start();
+            this.movimientoBalas.start();
+            this.controladorColisiones.start();
+            this.gestorDisparos.start();
+            
+            while (nave.getHP() > 0){
+                try {
+                    nave.mover(keyLeft, keyRight, keyUp, keyDown);
+                    panelDibujo.repaint();
+                    sleep(SLEEP_TIME);
+                } catch (InterruptedException ex) {
+                    Logger.getLogger(Game.class.getName()).log(Level.SEVERE, null, ex);
+                }
             }
+            restartGame();
         }
+    }
+    
+    public void restartGame(){
+        if (this.movimientoEnemigos.isPlaying()){
+            this.movimientoEnemigos.stopIt();
+            try{this.movimientoEnemigos.join();} catch(InterruptedException ex) {}
+            movimientoEnemigos = null;
+        }
+        if (this.movimientoBalas.isPlaying()){
+            this.movimientoBalas.stopIt();
+            try{this.movimientoBalas.join();} catch(InterruptedException ex) {}
+            movimientoBalas = null;
+        }
+        if (this.controladorColisiones.isPlaying()){
+            this.controladorColisiones.stopIt();
+            try{this.controladorColisiones.join();} catch(InterruptedException ex) {}
+            controladorColisiones = null;
+        }
+        if (this.gestorDisparos.isPlaying()){
+            this.gestorDisparos.stopIt();
+            try{this.gestorDisparos.join();} catch(InterruptedException ex) {}
+            gestorDisparos = null;
+        }
+    }
+    
+    public void newGame(){
+        enemies.clear();
+        nave.getBalas().clear();
+        nave.setHP(4);
+        nave.setPosX(Nave.POSX_INI);
+        nave.setPosY(Nave.POSY_INI);
+        Game.score = 0;
+        if (movimientoEnemigos == null){
+            this.movimientoEnemigos = new EnemyMoving(enemies);
+        }
+        if (movimientoBalas == null){
+            this.movimientoBalas = new BulletMoving(nave.getBalas());
+        }
+        if (controladorColisiones == null){
+            this.controladorColisiones = new Collision(this.nave,this.enemies);
+        }
+        if (gestorDisparos == null){
+            this.gestorDisparos = new GestorDisparos(this);
+        }
+            
     }
     
     public Nave getNave(){
@@ -202,6 +255,7 @@ public class Game extends javax.swing.JFrame {
             Game.spacePressed = false;
         }
     }//GEN-LAST:event_formKeyReleased
+
 
     /**
      * @param args the command line arguments

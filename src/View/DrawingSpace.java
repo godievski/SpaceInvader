@@ -8,6 +8,7 @@ package View;
 import java.awt.Canvas;
 import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Image;
 
@@ -72,7 +73,11 @@ public class DrawingSpace extends Canvas {
         
         //DIBUJAR PUNTAJE
         gAux.setColor(Color.WHITE);
-        gAux.drawString("Score: " + Game.getScore(), 10, 20);
+        
+        gAux.drawString("SCORE: " + Game.getScore(), 10, 20);
+        
+        //DIBUJAR VIDA
+        gAux.drawString("LIFE: " + game.getNave().getHP(), Game.WINDOW_WIDTH - 50,20);
         
         //DIBUJAR NAVE
         if (game.getNave() != null)

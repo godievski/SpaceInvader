@@ -48,4 +48,7 @@ public class GestorEnemigos {
     public int size(){
         return this.listaEnemigos.size();
     }
+    public void clear(){
+        this.listaEnemigos.clear();
+    }
 }
