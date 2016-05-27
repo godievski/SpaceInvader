@@ -37,21 +37,38 @@ public class Nave extends Sprite{
         return this.balas;
     }
     
-    public void mover(int dir){
-        if (dir == KeyEvent.VK_LEFT){
-            if (this.posX >= 3*VELOCIDAD)
-                this.posX -= this.vel;
-        } else if (dir == KeyEvent.VK_RIGHT){
-            if (this.posX <= ((Game.WINDOW_WIDTH) - (int)(Nave.WIDTH) - 3*VELOCIDAD))
-                this.posX += this.vel;   
+    public void mover(boolean left, boolean right, boolean up, boolean down){
+        double x=0, y=0;
+        if (left) x -=1 ;
+        if (right) x +=1;
+        if (up) y-=1;
+        if (down) y+=1;
+        double r = Math.sqrt(y*y + x*x);
+        y = y*VELOCIDAD;
+        x = x*VELOCIDAD;
+        if (r != 0){
+            y /= r;
+            x /= r;
         }
+        if (left)
+            if (this.posX >= 3*VELOCIDAD)
+                this.posX += x;
+        if (right)
+            if (this.posX <= ((Game.WINDOW_WIDTH) - (int)(Nave.WIDTH) - 3*VELOCIDAD))
+                this.posX += x;   
+        if (up)
+            if (this.posY >= Game.WINDOW_HEIGHT/2)
+                this.posY += y;
+        if (down)
+            if (this.posY <= POSY_INI)
+                this.posY += y;
     }
     
     public void dibujar(Graphics g){
         try {
             //DIBUJAR NAVE
             g.setColor(Color.CYAN);
-            g.fillRect(posX, posY, WIDTH, HEIGHT);
+            g.fillRect((int)posX,(int) posY, WIDTH, HEIGHT);
             
             //DIBUJAR BALAS
             balas.dibujar(g);
@@ -60,15 +77,15 @@ public class Nave extends Sprite{
             JOptionPane.showMessageDialog(null,e.toString());
         }
     }
+    
     public void disparar(int tipo){
         Point mousePoint = MouseInfo.getPointerInfo().getLocation();
         int mouseX = (int)( mousePoint.getX() - Game.getMyPosition().getX() );
         int mouseY = (int)( mousePoint.getY() - Game.getMyPosition().getY() );
         if (mouseY < this.posY){
-            balas.add(new Bullet(this.posX + this.width/2 - Bullet.WIDTH/2,
-                this.posY - Bullet.HEIGHT,
+            balas.add(new Bullet((int)(this.posX) + this.width/2 - Bullet.WIDTH/2,
+                (int)(this.posY) - Bullet.HEIGHT,
                 tipo,mouseX,mouseY));
         }
-        
     }
 }

@@ -54,8 +54,7 @@ public class EnemyMoving extends Thread{
             g.setColor(Color.BLACK);
             for (int i = 0; i < listaEnemy.size(); i++){
                 Enemy enemy = listaEnemy.get(i);
-                g.fillOval(enemy.getPosX(), enemy.getPosY(),
-                           enemy.getWidth(), enemy.getHeight());
+                enemy.dibujar(g);
             }
         } catch (Exception e){
             JOptionPane.showMessageDialog(null,e.toString());

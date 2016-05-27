@@ -45,7 +45,10 @@ public class Game extends javax.swing.JFrame {
     private final GestorDisparos gestorDisparos;
     
     //FLAGS
-    protected int keyPressed;
+    protected boolean keyUp;
+    protected boolean keyDown;
+    protected boolean keyLeft;
+    protected boolean keyRight;
     public static boolean spacePressed;
     public static boolean mousePressed;
     //CONSTANTS
@@ -79,7 +82,10 @@ public class Game extends javax.swing.JFrame {
         this.movimientoBalas = new BulletMoving(nave.getBalas());
         this.controladorColisiones = new Collision(this.nave,this.enemies);
         this.gestorDisparos = new GestorDisparos(this);
-        this.keyPressed = 0;
+        this.keyDown = false;
+        this.keyLeft = false;
+        this.keyRight = false;
+        this.keyUp = false;
         Game.spacePressed = false;
         Game.mousePressed = false;
         Game.score = 0;
@@ -93,7 +99,7 @@ public class Game extends javax.swing.JFrame {
         this.gestorDisparos.start();
         while (true){
             try {
-                nave.mover(this.keyPressed);
+                nave.mover(keyLeft, keyRight, keyUp, keyDown);
                 panelDibujo.repaint();
                 sleep(SLEEP_TIME);
             } catch (InterruptedException ex) {
@@ -164,24 +170,34 @@ public class Game extends javax.swing.JFrame {
         
         int code = evt.getKeyCode();
         //MOVIMIENTO
-        if (code == KeyEvent.VK_A){
-            this.keyPressed = KeyEvent.VK_LEFT;
-        }else if (code == KeyEvent.VK_D){
-            this.keyPressed = KeyEvent.VK_RIGHT;
-        }else if (code == KeyEvent.VK_LEFT || code == KeyEvent.VK_RIGHT)
-            this.keyPressed = code;
-        
+        if (code == KeyEvent.VK_A || code == KeyEvent.VK_LEFT)
+            this.keyLeft = true;
+        if (code == KeyEvent.VK_D || code == KeyEvent.VK_RIGHT)
+            this.keyRight = true;
+        if (code == KeyEvent.VK_W || code == KeyEvent.VK_UP)
+            this.keyUp = true;
+        if (code == KeyEvent.VK_S || code == KeyEvent.VK_DOWN)
+            this.keyDown = true;
+
         //DISPARO
-        if (code == KeyEvent.VK_SPACE){
+        if (code == KeyEvent.VK_SPACE)
             Game.spacePressed = true;           
-        }
-        
     }//GEN-LAST:event_formKeyPressed
 
     private void formKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_formKeyReleased
         // TODO add your handling code here:
         int code = evt.getKeyCode();
-     
+     //MOVIMIENTO
+        if (code == KeyEvent.VK_A || code == KeyEvent.VK_LEFT)
+            this.keyLeft = false;
+        if (code == KeyEvent.VK_D || code == KeyEvent.VK_RIGHT)
+            this.keyRight = false;
+        if (code == KeyEvent.VK_W || code == KeyEvent.VK_UP)
+            this.keyUp = false;
+        if (code == KeyEvent.VK_S || code == KeyEvent.VK_DOWN)
+            this.keyDown = false;
+
+        //DISPARO
         if (code == KeyEvent.VK_SPACE){
             Game.spacePressed = false;
         }

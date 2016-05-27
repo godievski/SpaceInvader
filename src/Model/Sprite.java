@@ -12,10 +12,8 @@ import java.awt.Graphics;
  * @author Godievski
  */
 public abstract class Sprite {
-    protected int posX;
-    protected int posY;
-    protected double posXDouble;
-    protected double posYDouble;
+    protected double posX;
+    protected double posY;
     protected int width;
     protected int height;
     protected int vel;
@@ -27,29 +25,23 @@ public abstract class Sprite {
         this.width = width;
         this.height = height;
     }
-    public int getPosX(){
+    public double getPosX(){
         return this.posX;
     }
-    public void setPosX(int value){
+    public int getPosXInt(){
+        return (int) this.posX;
+    }
+    public void setPosX(double value){
         this.posX = value;
     }
-    public int getPosY(){
-        return this.posY;
+    public double getPosY(){
+        return this.posX;
     }
-    public void setPosY(int value){
+    public int getPosYInt(){
+        return (int)this.posY;
+    }
+    public void setPosY(double value){
         this.posY = value;
-    }
-    public double getPosXDouble(){
-        return this.posXDouble;
-    }
-    public void setPosXDouble(double value){
-        this.posXDouble = value;
-    }
-    public double getPosYDouble(){
-        return this.posXDouble;
-    }
-    public void setPosYDouble(double value){
-        this.posYDouble = value;
     }
     public int getWidth(){
         return this.width;

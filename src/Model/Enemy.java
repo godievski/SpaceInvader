@@ -33,6 +33,6 @@ public class Enemy extends Sprite {
         this.posY += VELOCIDAD;
     }
     public void dibujar(Graphics g){
-        g.fillOval(this.posX, this.posY, this.width, this.height);
+        g.fillOval((int)this.posX,(int) this.posY, this.width, this.height);
     }
 }

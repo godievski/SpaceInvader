@@ -31,15 +31,15 @@ public class Collision extends Thread{
             for(int i = 0; i < listEnemy.size();i++){
                 try{
                     Enemy enemy = listEnemy.get(i);
-                    if (enemy.getPosY() > (Game.WINDOW_HEIGHT)){
+                    if (enemy.getPosYInt() > (Game.WINDOW_HEIGHT)){
                         listEnemy.remove(i);
                         i--;
                         continue;
                     }
-                    if ( ( (nave.getPosX() + nave.getWidth()) > enemy.getPosX()) &&
-                         (nave.getPosX() <= (enemy.getPosX() + enemy.getWidth() ) ) &&
-                         (nave.getPosY() >= enemy.getPosY() ) && 
-                         (nave.getPosY() <= (enemy.getPosY() + enemy.getHeight() ) ) ){
+                    if ( ( (nave.getPosXInt() + nave.getWidth()) > enemy.getPosXInt()) &&
+                         (nave.getPosXInt() <= (enemy.getPosXInt() + enemy.getWidth() ) ) &&
+                         (nave.getPosYInt() >= enemy.getPosYInt() ) && 
+                         (nave.getPosYInt() <= (enemy.getPosYInt() + enemy.getHeight() ) ) ){
                         Game.modifyScore(-enemy.getScore());
                         listEnemy.remove(i);
                         i--;
@@ -63,10 +63,10 @@ public class Collision extends Thread{
                     try{
                         Enemy enemy = listEnemy.get(j);
                         if (enemy == null) break;
-                        if ((bala.getPosX() + bala.getWidth()) > enemy.getPosX() && 
-                            (bala.getPosX() <= (enemy.getPosX() + enemy.getWidth())) &&
-                            (bala.getPosY()) >= enemy.getPosY() && 
-                            (bala.getPosY() <= (enemy.getPosY() + enemy.getHeight()))){
+                        if ((bala.getPosXInt() + bala.getWidth()) > enemy.getPosXInt() && 
+                            (bala.getPosXInt() <= (enemy.getPosXInt() + enemy.getWidth())) &&
+                            (bala.getPosYInt()) >= enemy.getPosYInt() && 
+                            (bala.getPosYInt() <= (enemy.getPosYInt() + enemy.getHeight()))){
                             Game.modifyScore(enemy.getScore());
                             listEnemy.remove(j);
                             listaBalas.remove(i);

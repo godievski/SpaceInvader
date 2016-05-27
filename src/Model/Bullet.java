@@ -28,8 +28,6 @@ public class Bullet extends Sprite{
     }
     public Bullet(int x, int y, int tipo, double mouseX, double mouseY){
         super(x, y,VELOCIDAD, WIDTH, HEIGHT);
-        this.posXDouble = x;
-        this.posYDouble = y;
         this.tipo = tipo;
         calcularVector(mouseX,mouseY);
     }
@@ -38,10 +36,8 @@ public class Bullet extends Sprite{
         if (tipo == SPACE)
             this.posY -= this.vel;
         else if (tipo == CLICK){
-            this.posYDouble += this.vectorY;
-            this.posXDouble += this.vectorX;
-            this.posX = (int) this.posXDouble;
-            this.posY = (int) this.posYDouble;
+            this.posY += this.vectorY;
+            this.posX += this.vectorX;
         }
     }
     private void calcularVector(double xFinal, double yFinal){
@@ -54,6 +50,6 @@ public class Bullet extends Sprite{
         this.vectorY = y;
     }
     public void dibujar(Graphics g){
-        g.fillRect(this.posX, this.posY, this.width, this.height);
+        g.fillRect((int)this.posX, (int)this.posY, this.width, this.height);
     }
 }
