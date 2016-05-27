@@ -15,7 +15,7 @@ public class Bullet extends Sprite{
     
     public static final int WIDTH = 5;
     public static final int HEIGHT = 7;
-    private static final int VELOCIDAD = 2;
+    private static final double VELOCIDAD = 2;
     private final int tipo;
     private double vectorX;
     private double vectorY;

@@ -22,7 +22,7 @@ public class Nave extends Sprite{
     
     protected static final int WIDTH = 20;
     protected static final int HEIGHT = 20;
-    private static final int VELOCIDAD = 2;
+    private static final double VELOCIDAD = 1.5;
     private static final int POSX_INI = (int)((Game.WINDOW_WIDTH - WIDTH)/2);
     private static final int POSY_INI = Game.WINDOW_HEIGHT - HEIGHT - 20;
    

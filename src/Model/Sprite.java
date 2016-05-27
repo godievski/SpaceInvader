@@ -16,9 +16,9 @@ public abstract class Sprite {
     protected double posY;
     protected int width;
     protected int height;
-    protected int vel;
+    protected double vel;
 
-    public Sprite(int x, int y, int vel, int width, int height){
+    public Sprite(int x, int y, double vel, int width, int height){
         this.posX = x;
         this.posY = y;
         this.vel = vel;
