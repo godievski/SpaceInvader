@@ -158,7 +158,6 @@ public class Game extends javax.swing.JFrame {
         if (gestorDisparos == null){
             this.gestorDisparos = new GestorDisparos(this);
         }
-            
     }
     
     public Nave getNave(){
