@@ -54,14 +54,13 @@ public class GestorDisparos extends Thread{
         }
     }
     private void procesarDisparo(){
-        if (Game.specialShoot){
+        if (Game.getSpecialShoot()){
             if (time_special_shooting % DELAY_SHOTING == 0){
                 this.nave.special();
             }
             this.time_special_shooting += SLEEP_TIME;
         }
-        
-        if (Game.getMousePressed()){
+        else if (Game.getMousePressed()){
             if (time_shoting_mouse % DELAY_SHOTING == 0){
                 this.nave.disparar(Bullet.CLICK);
             }

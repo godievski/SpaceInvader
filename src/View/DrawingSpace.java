@@ -45,12 +45,12 @@ public class DrawingSpace extends Canvas {
     }
     private void formMousePressed(java.awt.event.MouseEvent evt) {                                  
         // TODO add your handling code here:
-        if (!Game.getSpacePressed())
-            Game.mousePressed = true;
+        if (!Game.getSpacePressed() && !Game.getSpecialShoot())
+            Game.setMousePressed(true);
     }                                 
     private void formMouseReleased(java.awt.event.MouseEvent evt) {                                   
         // TODO add your handling code here:
-        Game.mousePressed = false;
+        Game.setMousePressed(false);
     }  
     
     @Override

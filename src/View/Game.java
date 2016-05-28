@@ -49,9 +49,9 @@ public class Game extends javax.swing.JFrame {
     protected boolean keyDown;
     protected boolean keyLeft;
     protected boolean keyRight;
-    public static boolean spacePressed;
-    public static boolean mousePressed;
-    public static boolean specialShoot;
+    private static boolean spacePressed;
+    private static boolean mousePressed;
+    private static boolean specialShoot;
     //CONSTANTS
     private final static int SLEEP_TIME = 10;
     public static final int WINDOW_WIDTH = 400;
@@ -171,12 +171,23 @@ public class Game extends javax.swing.JFrame {
     public static int getScore(){
         return Game.score;
     }
-    
+    public static boolean getSpecialShoot(){
+        return Game.specialShoot;
+    }
+    public static void setSpecialShoot(boolean value){
+        Game.specialShoot = value;
+    }
     public static boolean getMousePressed(){
         return Game.mousePressed;
     }
+    public static void setMousePressed(boolean value){
+        Game.mousePressed = value;
+    }
     public static boolean getSpacePressed(){
         return Game.spacePressed;
+    }
+    public static void setSpacePressed(boolean value){
+        Game.spacePressed = value;
     }
     public static Point getMyPosition(){
         return Game.position;
@@ -234,10 +245,15 @@ public class Game extends javax.swing.JFrame {
             this.keyDown = true;
 
         //DISPARO
-        if (code == KeyEvent.VK_SPACE)
-            Game.spacePressed = true;
-        if (code == KeyEvent.VK_X)
-            Game.specialShoot = true;
+        if (code == KeyEvent.VK_SPACE){
+            if (!Game.mousePressed && !Game.specialShoot)
+                Game.spacePressed = true;
+        }
+        if (code == KeyEvent.VK_X){
+            if (!Game.spacePressed && !Game.mousePressed)
+                Game.specialShoot = true;
+        }
+            
     }//GEN-LAST:event_formKeyPressed
 
     private void formKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_formKeyReleased
@@ -254,10 +270,13 @@ public class Game extends javax.swing.JFrame {
             this.keyDown = false;
 
         //DISPARO
-        if (code == KeyEvent.VK_SPACE)
+        if (code == KeyEvent.VK_SPACE){
             Game.spacePressed = false;
-        if (code == KeyEvent.VK_X)
+        }
+        if (code == KeyEvent.VK_X){
             Game.specialShoot = false;
+        }
+            
     }//GEN-LAST:event_formKeyReleased
 
 
