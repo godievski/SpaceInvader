@@ -82,10 +82,35 @@ public class Nave extends Sprite{
         Point mousePoint = MouseInfo.getPointerInfo().getLocation();
         int mouseX = (int)( mousePoint.getX() - Game.getMyPosition().getX() );
         int mouseY = (int)( mousePoint.getY() - Game.getMyPosition().getY() );
-        if (mouseY < this.posY){
+        if (mouseY < this.posY && tipo == Bullet.CLICK){
+            balas.add(new Bullet((int)(this.posX) + this.width/2 - Bullet.WIDTH/2,
+                (int)(this.posY) - Bullet.HEIGHT,
+                tipo,mouseX,mouseY));
+        } else if (tipo == Bullet.SPACE){
             balas.add(new Bullet((int)(this.posX) + this.width/2 - Bullet.WIDTH/2,
                 (int)(this.posY) - Bullet.HEIGHT,
                 tipo,mouseX,mouseY));
         }
+    }
+    public void special(){
+        Bullet bullet = new Bullet ((int)(this.posX) + this.width/2 - Bullet.WIDTH/2,
+                (int)(this.posY) - Bullet.HEIGHT);
+        double xFin = bullet.posX + Math.sin(10 * Math.PI / 180);
+        double yFin = bullet.posY - Math.cos(10 * Math.PI / 180);
+        bullet.calcularVector(xFin, yFin);
+        bullet.setTipo(Bullet.CLICK);
+        balas.add(bullet);
+        
+        balas.add(new Bullet((int)(this.posX) + this.width/2 - Bullet.WIDTH/2,
+                (int)(this.posY) - Bullet.HEIGHT));
+        
+        Bullet bullet2 = new Bullet ((int)(this.posX) + this.width/2 - Bullet.WIDTH/2,
+                (int)(this.posY) - Bullet.HEIGHT);
+        double xFin2 = bullet2.posX + Math.sin(-10 * Math.PI / 180);
+        double yFin2 = bullet2.posY - Math.cos(-10 * Math.PI / 180);
+        bullet2.calcularVector(xFin2, yFin2);
+        bullet2.setTipo(Bullet.CLICK);
+        balas.add(bullet2);
+        
     }
 }

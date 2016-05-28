@@ -21,12 +21,13 @@ public class GestorDisparos extends Thread{
     private final static int DELAY_SHOTING = 150;
     private int time_shoting_space;
     private int time_shoting_mouse;
+    private int time_special_shooting;
     private final Game game;
     private final Nave nave;
     private boolean playing;
   
     public GestorDisparos(Game game){
-        this.time_shoting_mouse = time_shoting_space = 0;
+        this.time_shoting_mouse = time_special_shooting = time_shoting_space = 0;
         this.game = game;
         this.nave = game.getNave();
         this.playing = true;
@@ -53,6 +54,13 @@ public class GestorDisparos extends Thread{
         }
     }
     private void procesarDisparo(){
+        if (Game.specialShoot){
+            if (time_special_shooting % DELAY_SHOTING == 0){
+                this.nave.special();
+            }
+            this.time_special_shooting += SLEEP_TIME;
+        }
+        
         if (Game.getMousePressed()){
             if (time_shoting_mouse % DELAY_SHOTING == 0){
                 this.nave.disparar(Bullet.CLICK);

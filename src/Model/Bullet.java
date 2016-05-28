@@ -16,7 +16,7 @@ public class Bullet extends Sprite{
     public static final int WIDTH = 5;
     public static final int HEIGHT = 7;
     private static final double VELOCIDAD = 2;
-    private final int tipo;
+    private int tipo;
     private double vectorX;
     private double vectorY;
     
@@ -32,6 +32,19 @@ public class Bullet extends Sprite{
         calcularVector(mouseX,mouseY);
     }
     
+    public int getTipo(){
+        return this.tipo;
+    }
+    
+    public void setTipo(int value){
+        this.tipo = value;
+    }
+    
+    public void setVector(double x, double y){
+        this.vectorX = x;
+        this.vectorY = y;
+    }
+    
     public void mover(){
         if (tipo == SPACE)
             this.posY -= this.vel;
@@ -40,7 +53,7 @@ public class Bullet extends Sprite{
             this.posX += this.vectorX;
         }
     }
-    private void calcularVector(double xFinal, double yFinal){
+    public void calcularVector(double xFinal, double yFinal){
         double y = yFinal - this.posY;
         double x = xFinal - this.posX;
         double r = Math.sqrt(y*y + x*x);

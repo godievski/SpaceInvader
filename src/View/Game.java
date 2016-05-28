@@ -51,6 +51,7 @@ public class Game extends javax.swing.JFrame {
     protected boolean keyRight;
     public static boolean spacePressed;
     public static boolean mousePressed;
+    public static boolean specialShoot;
     //CONSTANTS
     private final static int SLEEP_TIME = 10;
     public static final int WINDOW_WIDTH = 400;
@@ -88,6 +89,7 @@ public class Game extends javax.swing.JFrame {
         this.keyUp = false;
         Game.spacePressed = false;
         Game.mousePressed = false;
+        Game.specialShoot = false;
         Game.score = 0;
         Game.position = this.getLocationOnScreen();
     }
@@ -233,7 +235,9 @@ public class Game extends javax.swing.JFrame {
 
         //DISPARO
         if (code == KeyEvent.VK_SPACE)
-            Game.spacePressed = true;           
+            Game.spacePressed = true;
+        if (code == KeyEvent.VK_X)
+            Game.specialShoot = true;
     }//GEN-LAST:event_formKeyPressed
 
     private void formKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_formKeyReleased
@@ -250,9 +254,10 @@ public class Game extends javax.swing.JFrame {
             this.keyDown = false;
 
         //DISPARO
-        if (code == KeyEvent.VK_SPACE){
+        if (code == KeyEvent.VK_SPACE)
             Game.spacePressed = false;
-        }
+        if (code == KeyEvent.VK_X)
+            Game.specialShoot = false;
     }//GEN-LAST:event_formKeyReleased
 
 
