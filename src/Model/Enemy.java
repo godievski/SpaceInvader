@@ -5,7 +5,7 @@
  */
 package Model;
 
-import View.Game;
+import View.WindowGame;
 import java.awt.Graphics;
 
 /**
@@ -23,7 +23,7 @@ public class Enemy extends Sprite {
     
     private final int score;
     private static final int MIN = (Enemy.WIDTH/2 + Nave.WIDTH/2);
-    private static final int MAX = (Game.WINDOW_WIDTH - Enemy.WIDTH - Nave.WIDTH/2);
+    private static final int MAX = (WindowGame.WINDOW_WIDTH - Enemy.WIDTH - Nave.WIDTH/2);
     private int tipo;
     
     public Enemy(){
@@ -55,6 +55,7 @@ public class Enemy extends Sprite {
         this.posX += this.vectorX;
     }
     
+    @Override
     public void dibujar(Graphics g){
         g.fillOval((int)this.posX,(int) this.posY, this.width, this.height);
     }

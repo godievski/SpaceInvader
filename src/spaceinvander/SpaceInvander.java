@@ -5,7 +5,7 @@
  */
 package spaceinvander;
 
-import View.Game;
+import View.WindowGame;
 
 
 /**
@@ -17,8 +17,8 @@ public class SpaceInvander {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        Game game = new Game();
-        game.play();
+        WindowGame windowGame = new WindowGame();
+        windowGame.startGame();
     }
     
 }

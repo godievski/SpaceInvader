@@ -9,7 +9,7 @@ import Controller.GestorBalas;
 import java.awt.Color;
 import java.awt.Graphics;
 import javax.swing.JOptionPane;
-import View.Game;
+import View.WindowGame;
 import java.awt.MouseInfo;
 import java.awt.Point;
 
@@ -19,22 +19,38 @@ import java.awt.Point;
  */
 public class Nave extends Sprite{
     
+    //CONSTANT
     protected static final int WIDTH = 20;
     protected static final int HEIGHT = 20;
     private static final double VELOCIDAD = 2.2;
     private static final int HP = 4;
-    public static final int POSX_INI = (int)((Game.WINDOW_WIDTH - WIDTH)/2);
-    public static final int POSY_INI = Game.WINDOW_HEIGHT - HEIGHT - 20;
+    public static final int POSX_INI = (int)((WindowGame.WINDOW_WIDTH - WIDTH)/2);
+    public static final int POSY_INI = WindowGame.WINDOW_HEIGHT - HEIGHT - 20;
    
+    //
     private final GestorBalas balas;
+    private int score;
     
     public Nave(){
         super(POSX_INI, POSY_INI, VELOCIDAD, Nave.WIDTH, Nave.HEIGHT, Nave.HP);
         this.balas = new GestorBalas();
+        this.score = 0;
     }
     
     public GestorBalas getBalas(){
         return this.balas;
+    }
+    
+    public void setScore(int value){
+        this.score = value;
+    }
+    
+    public int getScore(){
+        return this.score;
+    }
+    
+    public void incrementScore(int value){
+        this.score += value;
     }
     
     public void mover(boolean left, boolean right, boolean up, boolean down){
@@ -54,16 +70,17 @@ public class Nave extends Sprite{
             if (this.posX >= 0)
                 this.posX += x;
         if (right)
-            if (this.posX <= ((Game.WINDOW_WIDTH) - (int)(Nave.WIDTH) ))
+            if (this.posX <= ((WindowGame.WINDOW_WIDTH) - (int)(Nave.WIDTH) ))
                 this.posX += x;   
         if (up)
-            if (this.posY >= Game.WINDOW_HEIGHT/2)
+            if (this.posY >= WindowGame.WINDOW_HEIGHT/2)
                 this.posY += y;
         if (down)
             if (this.posY <= POSY_INI)
                 this.posY += y;
     }
     
+    @Override
     public void dibujar(Graphics g){
         try {
             //DIBUJAR NAVE
@@ -80,8 +97,8 @@ public class Nave extends Sprite{
     
     public void disparar(int tipo){
         Point mousePoint = MouseInfo.getPointerInfo().getLocation();
-        int mouseX = (int)( mousePoint.getX() - Game.getMyPosition().getX() );
-        int mouseY = (int)( mousePoint.getY() - Game.getMyPosition().getY() );
+        int mouseX = (int)( mousePoint.getX() - WindowGame.getMyPosition().getX() );
+        int mouseY = (int)( mousePoint.getY() - WindowGame.getMyPosition().getY() );
         if (mouseY < this.posY && tipo == Bullet.CLICK){
             balas.add(new Bullet((int)(this.posX) + this.width/2 - Bullet.WIDTH/2,
                 (int)(this.posY) - Bullet.HEIGHT,

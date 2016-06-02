@@ -8,9 +8,10 @@ package Controller;
 import Model.Bullet;
 import Model.Nave;
 import Model.Enemy;
+import Model.Sprite;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import View.Game;
+import View.WindowGame;
 
 /**
  *
@@ -36,6 +37,13 @@ public class Collision extends Thread{
         return this.playing;
     }
     
+    private boolean checkCollision(Sprite obj1, Sprite obj2){
+        return ( obj1.getPosXInt() + obj1.getWidth() >= obj2.getPosXInt() ) &&
+               ( obj1.getPosXInt() <= obj2.getPosXInt() + obj2.getWidth() ) &&
+               ( obj1.getPosYInt() + obj1.getHeight() >= obj2.getPosYInt() ) &&
+               ( obj1.getPosYInt() <= obj2.getPosYInt() + obj2.getHeight());
+    }
+    
     @Override
     public void run(){
         playing = true;
@@ -44,16 +52,13 @@ public class Collision extends Thread{
             for(int i = 0; i < listEnemy.size();i++){
                 try{
                     Enemy enemy = listEnemy.get(i);
-                    if (enemy.getPosYInt() > (Game.WINDOW_HEIGHT)){
+                    if (enemy.getPosYInt() > (WindowGame.WINDOW_HEIGHT)){
                         listEnemy.remove(i);
                         i--;
                         nave.removeHP();
                         continue;
                     }
-                    if ( ( (nave.getPosXInt() + nave.getWidth()) >= enemy.getPosXInt()) &&
-                         (nave.getPosXInt() <= (enemy.getPosXInt() + enemy.getWidth() ) ) &&
-                         ( (nave.getPosYInt() + nave.getHeight())>= enemy.getPosYInt() ) && 
-                         (nave.getPosYInt() <= (enemy.getPosYInt() + enemy.getHeight() ) ) ){
+                    if (checkCollision(nave,enemy)){
                         nave.removeHP();
                         listEnemy.remove(i);
                         i--;    
@@ -77,13 +82,10 @@ public class Collision extends Thread{
                     try{
                         Enemy enemy = listEnemy.get(j);
                         if (enemy == null) break;
-                        if ((bala.getPosXInt() + bala.getWidth()) >= enemy.getPosXInt() && 
-                            (bala.getPosXInt() <= (enemy.getPosXInt() + enemy.getWidth())) &&
-                            (bala.getPosYInt() + bala.getHeight()) >= enemy.getPosYInt() && 
-                            (bala.getPosYInt() <= (enemy.getPosYInt() + enemy.getHeight()))){
+                        if (checkCollision(bala,enemy)){
                             enemy.removeHP();
                             if (enemy.getHP() <= 0){
-                                Game.modifyScore(enemy.getScore());
+                                nave.incrementScore(enemy.getScore());
                                 listEnemy.remove(j);
                                 j--;
                             }
