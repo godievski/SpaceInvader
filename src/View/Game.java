@@ -79,7 +79,7 @@ public class Game extends javax.swing.JFrame {
         //OBJETOS DEL JUEGO
         this.nave = new Nave();
         this.enemies = new GestorEnemigos();
-        this.movimientoEnemigos = new EnemyMoving(enemies);
+        this.movimientoEnemigos = new EnemyMoving(enemies, nave);
         this.movimientoBalas = new BulletMoving(nave.getBalas());
         this.controladorColisiones = new Collision(this.nave,this.enemies);
         this.gestorDisparos = new GestorDisparos(this);
@@ -149,7 +149,7 @@ public class Game extends javax.swing.JFrame {
         nave.setPosY(Nave.POSY_INI);
         Game.score = 0;
         if (movimientoEnemigos == null){
-            this.movimientoEnemigos = new EnemyMoving(enemies);
+            this.movimientoEnemigos = new EnemyMoving(enemies, nave);
         }
         if (movimientoBalas == null){
             this.movimientoBalas = new BulletMoving(nave.getBalas());

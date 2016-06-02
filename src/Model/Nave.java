@@ -51,10 +51,10 @@ public class Nave extends Sprite{
             x /= r;
         }
         if (left)
-            if (this.posX >= 3*VELOCIDAD)
+            if (this.posX >= 0)
                 this.posX += x;
         if (right)
-            if (this.posX <= ((Game.WINDOW_WIDTH) - (int)(Nave.WIDTH) - 3*VELOCIDAD))
+            if (this.posX <= ((Game.WINDOW_WIDTH) - (int)(Nave.WIDTH) ))
                 this.posX += x;   
         if (up)
             if (this.posY >= Game.WINDOW_HEIGHT/2)

@@ -18,6 +18,8 @@ public abstract class Sprite {
     protected int height;
     protected double vel;
     protected int hp;
+    protected double vectorX;
+    protected double vectorY;
 
     public Sprite(int x, int y, double vel, int width, int height, int hp){
         this.posX = x;
@@ -26,6 +28,21 @@ public abstract class Sprite {
         this.width = width;
         this.height = height;
         this.hp = hp;
+    }
+    
+    public void setVector(double x, double y){
+        this.vectorX = x;
+        this.vectorY = y;
+    }
+    
+    public void calcularVector(double xFinal, double yFinal){
+        double y = yFinal - this.posY;
+        double x = xFinal - this.posX;
+        double r = Math.sqrt(y*y + x*x);
+        y = vel * y/r;
+        x = vel * x/r;
+        this.vectorX = x;
+        this.vectorY = y;
     }
     
     public int getHP(){
@@ -47,7 +64,7 @@ public abstract class Sprite {
         this.posX = value;
     }
     public double getPosY(){
-        return this.posX;
+        return this.posY;
     }
     public int getPosYInt(){
         return (int)this.posY;

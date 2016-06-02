@@ -6,6 +6,7 @@
 package Controller;
 
 import Model.Enemy;
+import Model.Nave;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.util.logging.Level;
@@ -23,9 +24,12 @@ public class EnemyMoving extends Thread{
     private static final int NEW_ENEMY_TIME = 900;
     private static int contador = 0;
     private boolean playing;
-    public EnemyMoving(GestorEnemigos listEnemy){
+    private Nave nave;
+    
+    public EnemyMoving(GestorEnemigos listEnemy, Nave nave){
         this.listaEnemy = listEnemy;
         this.playing = true;
+        this.nave = nave;
     }
     
     
@@ -43,14 +47,14 @@ public class EnemyMoving extends Thread{
         while(playing){
             try {
                 if (contador % NEW_ENEMY_TIME == 0){
-                    this.listaEnemy.add(new Enemy());
+                    Enemy enemigo = new Enemy();
+                    this.listaEnemy.add(enemigo);
                 }
-                    
-                
+
                 for (int i = 0; i < listaEnemy.size(); i++){
                     Enemy enemigo = listaEnemy.get(i);
                     if (enemigo != null){
-                        enemigo.mover();
+                            enemigo.mover(nave);
                     }
                         
                 }
