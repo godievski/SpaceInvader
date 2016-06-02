@@ -8,7 +8,6 @@ package View;
 import Controller.BulletMoving;
 import Controller.Collision;
 import Controller.EnemyMoving;
-import Controller.GestorDisparos;
 import Controller.GestorEnemigos;
 import Controller.GestorNave;
 import Model.Nave;
@@ -29,7 +28,6 @@ public class Game {
     protected EnemyMoving movimientoEnemigos;
     protected BulletMoving movimientoBalas;
     protected Collision controladorColisiones;
-    protected GestorDisparos gestorDisparos;
     
     public Game(WindowGame wg){
         //OBJETOS DEL JUEGO
@@ -39,7 +37,6 @@ public class Game {
         this.movimientoEnemigos = null;
         this.movimientoBalas = null;
         this.controladorColisiones = null;
-        this.gestorDisparos = null;
         this.wg = wg;
     }
 

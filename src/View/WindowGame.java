@@ -37,6 +37,7 @@ public class WindowGame extends javax.swing.JFrame {
     private static Point position;
     private int numPlayer = 0;
     private Nave nave;
+    protected GestorDisparos gestorDisparos;
     
     //FLAGS
     protected boolean keyUp;
@@ -155,13 +156,13 @@ public class WindowGame extends javax.swing.JFrame {
         if (game.controladorColisiones == null){
             game.controladorColisiones = new Collision(this.nave,game.getEnemies());
         }
-        if (game.gestorDisparos == null){
-            game.gestorDisparos = new GestorDisparos(this);
+        if (this.gestorDisparos == null){
+            this.gestorDisparos = new GestorDisparos(this);
         }
         game.movimientoEnemigos.start();
         game.movimientoBalas.start();
         game.controladorColisiones.start();
-        game.gestorDisparos.start();
+        this.gestorDisparos.start();
     }
     
     public void endGame(){
@@ -180,10 +181,10 @@ public class WindowGame extends javax.swing.JFrame {
             try{game.controladorColisiones.join();} catch(InterruptedException ex) {}
             game.controladorColisiones = null;
         }
-        if (game.gestorDisparos.isPlaying()){
-            game.gestorDisparos.stopIt();
-            try{game.gestorDisparos.join();} catch(InterruptedException ex) {}
-            game.gestorDisparos = null;
+        if (this.gestorDisparos.isPlaying()){
+            this.gestorDisparos.stopIt();
+            try{this.gestorDisparos.join();} catch(InterruptedException ex) {}
+            this.gestorDisparos = null;
         }
     }
     
