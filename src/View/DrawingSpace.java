@@ -28,8 +28,6 @@ public class DrawingSpace extends Canvas {
         this.game = game;
         this.setSize(d);
         dimPanel = d;
-        
-        
     }
     private void initComponents(){
         this.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -43,6 +41,7 @@ public class DrawingSpace extends Canvas {
             }
         });
     }
+    
     private void formMousePressed(java.awt.event.MouseEvent evt) {                                  
         // TODO add your handling code here:
         if (!Game.getSpacePressed() && !Game.getSpecialShoot())
@@ -73,7 +72,6 @@ public class DrawingSpace extends Canvas {
         
         //DIBUJAR PUNTAJE
         gAux.setColor(Color.WHITE);
-        
         gAux.drawString("SCORE: " + Game.getScore(), 10, 20);
         
         //DIBUJAR VIDA

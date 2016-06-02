@@ -24,7 +24,7 @@ public class EnemyMoving extends Thread{
     private static final int NEW_ENEMY_TIME = 900;
     private static int contador = 0;
     private boolean playing;
-    private Nave nave;
+    private final Nave nave;
     
     public EnemyMoving(GestorEnemigos listEnemy, Nave nave){
         this.listaEnemy = listEnemy;

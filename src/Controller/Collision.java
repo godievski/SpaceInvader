@@ -47,16 +47,16 @@ public class Collision extends Thread{
                     if (enemy.getPosYInt() > (Game.WINDOW_HEIGHT)){
                         listEnemy.remove(i);
                         i--;
+                        nave.removeHP();
                         continue;
                     }
-                    if ( ( (nave.getPosXInt() + nave.getWidth()) > enemy.getPosXInt()) &&
+                    if ( ( (nave.getPosXInt() + nave.getWidth()) >= enemy.getPosXInt()) &&
                          (nave.getPosXInt() <= (enemy.getPosXInt() + enemy.getWidth() ) ) &&
-                         (nave.getPosYInt() >= enemy.getPosYInt() ) && 
+                         ( (nave.getPosYInt() + nave.getHeight())>= enemy.getPosYInt() ) && 
                          (nave.getPosYInt() <= (enemy.getPosYInt() + enemy.getHeight() ) ) ){
                         nave.removeHP();
                         listEnemy.remove(i);
                         i--;    
-                        
                         if (i < 0) break;
                     }
                 } catch (Exception e){
@@ -77,9 +77,9 @@ public class Collision extends Thread{
                     try{
                         Enemy enemy = listEnemy.get(j);
                         if (enemy == null) break;
-                        if ((bala.getPosXInt() + bala.getWidth()) > enemy.getPosXInt() && 
+                        if ((bala.getPosXInt() + bala.getWidth()) >= enemy.getPosXInt() && 
                             (bala.getPosXInt() <= (enemy.getPosXInt() + enemy.getWidth())) &&
-                            (bala.getPosYInt()) >= enemy.getPosYInt() && 
+                            (bala.getPosYInt() + bala.getHeight()) >= enemy.getPosYInt() && 
                             (bala.getPosYInt() <= (enemy.getPosYInt() + enemy.getHeight()))){
                             enemy.removeHP();
                             if (enemy.getHP() <= 0){
