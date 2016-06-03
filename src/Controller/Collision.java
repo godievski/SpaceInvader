@@ -18,13 +18,13 @@ import View.WindowGame;
  * @author Godievski
  */
 public class Collision extends Thread{
-    private final Nave nave;
+    private final GestorNave listNave;
     private final GestorEnemigos listEnemy;
     private static final int SLEEP_TIME = 5;
     private boolean playing;
     
-    public Collision(Nave nave, GestorEnemigos listEnemy){
-        this.nave = nave;
+    public Collision(GestorNave listNave, GestorEnemigos listEnemy){
+        this.listNave = listNave;
         this.listEnemy = listEnemy;
         this.playing = true;
     }
@@ -49,52 +49,62 @@ public class Collision extends Thread{
         playing = true;
         while(playing){
             //CHECAR COLISION NAVE - ENEMIGO
-            for(int i = 0; i < listEnemy.size();i++){
-                try{
-                    Enemy enemy = listEnemy.get(i);
-                    if (enemy.getPosYInt() > (WindowGame.WINDOW_HEIGHT)){
-                        listEnemy.remove(i);
-                        i--;
-                        nave.removeHP();
-                        continue;
+            
+            for(int j = 0; j < listNave.size();j++){
+                Nave nave = listNave.get(j);
+                if (!nave.isAlive()) continue;
+                for(int i = 0; i < listEnemy.size();i++){
+                    try{
+                        Enemy enemy = listEnemy.get(i);
+                        if (enemy.getPosYInt() > (WindowGame.WINDOW_HEIGHT)){
+                            listEnemy.remove(i);
+                            i--;
+                            nave.removeHP();
+                            continue;
+                        }
+                        if (checkCollision(nave,enemy)){
+                            nave.removeHP();
+                            listEnemy.remove(i);
+                            i--;    
+                            if (i < 0) break;
+                        }
+                    } catch (Exception e){
                     }
-                    if (checkCollision(nave,enemy)){
-                        nave.removeHP();
-                        listEnemy.remove(i);
-                        i--;    
-                        if (i < 0) break;
-                    }
-                } catch (Exception e){
                 }
             }
             
             //CHECAR COLISION BALA - ENEMIGO
-            GestorBalas listaBalas = nave.getBalas();
-            for(int i = 0; i < listaBalas.size(); i++){
-                Bullet bala = listaBalas.get(i);
-                if (bala == null) break;
-                if (bala.getPosY() < 0){
-                        listaBalas.remove(i);
-                        i--;
-                        continue;
-                    }
-                for (int j = 0; j < listEnemy.size(); j++){
-                    try{
-                        Enemy enemy = listEnemy.get(j);
-                        if (enemy == null) break;
-                        if (checkCollision(bala,enemy)){
-                            enemy.removeHP();
-                            if (enemy.getHP() <= 0){
-                                nave.incrementScore(enemy.getScore());
-                                listEnemy.remove(j);
-                                j--;
-                            }
+            for(int z = 0; z < listNave.size(); z++){
+                Nave nave = listNave.get(z);
+                if(!nave.isAlive()) continue;
+                GestorBalas listaBalas = nave.getBalas();
+            
+                for(int i = 0; i < listaBalas.size(); i++){
+                    Bullet bala = listaBalas.get(i);
+                    if (bala == null) break;
+                    if (bala.getPosY() < 0){
                             listaBalas.remove(i);
                             i--;
-                            if (i < 0) break;
+                            continue;
                         }
-                    } catch (Exception e){
-                        
+                    for (int j = 0; j < listEnemy.size(); j++){
+                        try{
+                            Enemy enemy = listEnemy.get(j);
+                            if (enemy == null) break;
+                            if (checkCollision(bala,enemy)){
+                                enemy.removeHP();
+                                if (enemy.getHP() <= 0){
+                                    nave.incrementScore(enemy.getScore());
+                                    listEnemy.remove(j);
+                                    j--;
+                                }
+                                listaBalas.remove(i);
+                                i--;
+                                if (i < 0) break;
+                            }
+                        } catch (Exception e){
+
+                        }
                     }
                 }
             }

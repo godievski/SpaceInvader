@@ -35,6 +35,10 @@ public abstract class Sprite {
         this.vectorY = y;
     }
     
+    public boolean isAlive(){
+        return this.hp > 0;
+    }
+    
     public void calcularVector(double xFinal, double yFinal){
         double y = yFinal - this.posY;
         double x = xFinal - this.posX;

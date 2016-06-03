@@ -32,7 +32,6 @@ public class EnemyMoving extends Thread{
         this.nave = nave;
     }
     
-    
     public void stopIt(){
         this.playing = false;
     }

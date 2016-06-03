@@ -88,7 +88,7 @@ public class WindowGame extends javax.swing.JFrame {
         WindowGame.position = this.getLocationOnScreen();
     }
 
-    public void addPlayer(){
+    private void addPlayer(){
         this.numPlayer = this.game.getNaves().size();
         this.game.joinGame(this.nave);
     }
@@ -154,7 +154,7 @@ public class WindowGame extends javax.swing.JFrame {
             game.movimientoBalas = new BulletMoving(nave.getBalas());
         }
         if (game.controladorColisiones == null){
-            game.controladorColisiones = new Collision(this.nave,game.getEnemies());
+            game.controladorColisiones = new Collision(game.getNaves(),game.getEnemies());
         }
         if (this.gestorDisparos == null){
             this.gestorDisparos = new GestorDisparos(this);
